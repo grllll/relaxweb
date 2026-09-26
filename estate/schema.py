@@ -238,6 +238,12 @@ def init_estate(conn):
         volume_cents INTEGER NOT NULL DEFAULT 0,
         PRIMARY KEY(symbol,period,start_minute)
     )""")
+    # 向后兼容的加列：老库补列即可，不必换纪元把整片行情清空（见 docs/stock-market-design.md §9）。
+    candle_columns = {row[1] for row in conn.execute("PRAGMA table_info(estate_market_candles)")}
+    for column in ("volume_milli", "volume_cents"):
+        if column not in candle_columns:
+            conn.execute(f"ALTER TABLE estate_market_candles ADD COLUMN {column} "
+                         "INTEGER NOT NULL DEFAULT 0")
     conn.execute("""CREATE TABLE IF NOT EXISTS estate_market_orders (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL COLLATE NOCASE,

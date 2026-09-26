@@ -453,6 +453,44 @@ class MarketTests(unittest.TestCase):
 class MarketResetTests(unittest.TestCase):
     """新市场纪元 = 重开整个股市：旧数据整体作废，不做迁移。"""
 
+    def test_additive_columns_do_not_need_a_new_epoch(self):
+        """加列是向后兼容变更：老库补列即可，绝不能顺手换纪元把行情清空。"""
+        from estate.market import MARKET_EPOCH
+        conn = sqlite3.connect(":memory:")
+        conn.execute("CREATE TABLE users(username TEXT PRIMARY KEY,coins REAL NOT NULL)")
+        conn.execute("CREATE TABLE coin_transactions(username TEXT,amount REAL,kind TEXT,"
+                     "detail TEXT,ref TEXT)")
+        conn.execute("INSERT INTO users VALUES ('heitaoja',100000)")
+        # 造出"上一版部署后"的库：纪元已是当前值，但 K 线表没有成交量两列。
+        conn.execute("CREATE TABLE estate_market_meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
+        conn.execute("INSERT INTO estate_market_meta VALUES ('epoch',?)", (str(MARKET_EPOCH),))
+        conn.execute("CREATE TABLE estate_market_candles (symbol TEXT NOT NULL, period TEXT NOT NULL,"
+                     "start_minute INTEGER NOT NULL, open_cents INTEGER NOT NULL,"
+                     "high_cents INTEGER NOT NULL, low_cents INTEGER NOT NULL,"
+                     "close_cents INTEGER NOT NULL, PRIMARY KEY(symbol,period,start_minute))")
+        conn.execute("CREATE TABLE estate_market_positions (username TEXT NOT NULL,"
+                     "symbol TEXT NOT NULL, shares_milli INTEGER NOT NULL DEFAULT 0,"
+                     "cost_basis_cents INTEGER NOT NULL DEFAULT 0,"
+                     "realized_pnl_cents INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(username,symbol))")
+        conn.execute("INSERT INTO estate_market_positions VALUES "
+                     "('heitaoja','XTIDE',1999000,215492200,12550)")
+        for index in range(50):
+            conn.execute("INSERT INTO estate_market_candles VALUES ('XTIDE','minute',?,?,?,?,?)",
+                         (1000 + index, 100000, 101000, 99000, 100500))
+
+        init_estate(conn)
+
+        self.assertEqual(conn.execute("SELECT shares_milli,cost_basis_cents,realized_pnl_cents "
+                                      "FROM estate_market_positions").fetchone(),
+                         (1999000, 215492200, 12550))
+        self.assertEqual(conn.execute("SELECT COUNT(*) FROM estate_market_candles").fetchone()[0], 50)
+        columns = {row[1] for row in conn.execute("PRAGMA table_info(estate_market_candles)")}
+        self.assertIn("volume_milli", columns)
+        self.assertIn("volume_cents", columns)
+        self.assertEqual(conn.execute("SELECT value FROM estate_market_meta "
+                                      "WHERE key='epoch'").fetchone()[0], str(MARKET_EPOCH))
+        conn.close()
+
     def test_new_epoch_wipes_everything_and_reseeds_symbols(self):
         from estate.market import MARKET_EPOCH, set_market_epoch
         conn = sqlite3.connect(":memory:")
