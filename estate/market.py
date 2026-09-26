@@ -14,12 +14,16 @@
 每分钟自然流上限。系统唯一的印钞来源是玩家已实现盈利，按滚动 4 周预算
 封顶；预算全市场共享，耗尽时所有标的的锚一起暂停上移，波动照常。
 """
+import logging
 import math
 import re
 import secrets
 from decimal import Decimal, ROUND_CEILING, ROUND_FLOOR
 
 from estate.store import EstateError, credit, debit, estate_error, run_action
+
+
+logger = logging.getLogger("live-chat")
 
 
 # 吃单（立即成交）与挂单（等自然流分批成交）分别计费，鼓励报单提供流动性。
@@ -120,6 +124,9 @@ def retire_market_tables(conn, epoch):
     ``SELECT`` 就能捞回来。索引名在 SQLite 里是全局唯一的，所以必须让位。
     """
     suffix = f"_epoch{epoch}"
+    # 这条路径正常永远不该走到：走到就说明结构真的读不动了，日志里必须看得见。
+    logger.warning("estate market tables retired: epoch=%s -> %s (min compatible=%s)",
+                   epoch, MARKET_EPOCH, MARKET_MIN_COMPATIBLE_EPOCH)
     for table in market_tables():
         exists = conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",
                               (table,)).fetchone()
