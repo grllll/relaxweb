@@ -352,6 +352,35 @@ class MarketTests(unittest.TestCase):
         self.assertEqual(sum(level["quantity"] for level in after["asks"]), 5)
         self.assertEqual(sum(level["quantity"] for level in fresh["asks"]), 20)
 
+    def test_exhausted_capacity_hides_the_book_and_rejects_orders(self):
+        """额度吃满后：该侧盘口为空、市价被拒、委托也被拒，反向交易照常。"""
+        self.fund(2_000_000)
+        with self.randn():
+            market_snapshot(self.conn, "alice", NOW, adjust_coins, SYMBOL)
+            minute = 0
+            while tradable_milli(self.conn, "buy", SYMBOL) > 0 and minute < 200:
+                minute += 1
+                trade_market(self.conn, "alice", f"market-drain-{minute:05d}", "buy",
+                             str(min(20_000, tradable_milli(self.conn, "buy", SYMBOL)) / 1000),
+                             NOW + 60 * minute, adjust_coins, SYMBOL)
+            full = market_snapshot(self.conn, "alice", NOW + 60 * minute, adjust_coins, SYMBOL)
+        self.assertEqual(full["capacity_left"], 0)
+        self.assertEqual(full["tradable_buy"], 0)
+        self.assertEqual(full["book"]["asks"], [])
+        self.assertGreater(len(full["book"]["bids"]), 0)
+        self.assertGreater(full["tradable_sell"], 0)
+        with self.randn():
+            with self.assertRaises(EstateError) as caught:
+                trade_market(self.conn, "alice", "market-blocked-0001", "buy", "1",
+                             NOW + 60 * minute + 1, adjust_coins, SYMBOL)
+            self.assertEqual(caught.exception.code, "market_no_liquidity")
+            # 挂单要落在 ±20 元窗口内，否则会先被价格窗口拒掉
+            with self.assertRaises(EstateError) as caught:
+                place_order(self.conn, "alice", "market-blocked-0002", "buy",
+                            str(int(full["price"]) + 5), "1",
+                            NOW + 60 * minute + 1, adjust_coins, SYMBOL)
+            self.assertEqual(caught.exception.code, "market_no_liquidity")
+
     def test_book_hides_the_side_with_no_capacity_left(self):
         self.fund(50_000)
         with self.randn():

@@ -635,7 +635,7 @@ def market_snapshot(conn, username, now, adjust_coins, symbol=DEFAULT_SYMBOL):
             "available": True, "fee_rate": float(TAKER_FEE_RATE),
             "maker_fee_rate": float(MAKER_FEE_RATE),
             "volume": market_volume(conn, symbol, minute),
-            "capacity_left": (cap - abs(inventory)) / 1000,
+            "capacity_left": max(0.0, (cap - abs(inventory)) / 1000),
             "split_count": splits, "last_split_minute": last_split,
             "tradable_buy": tradable_milli(conn, "buy", symbol) / 1000,
             "tradable_sell": tradable_milli(conn, "sell", symbol) / 1000,
@@ -957,6 +957,10 @@ def place_order(conn, username, request_id, side, price, quantity, now, adjust_c
         if abs(limit_cents - price_cents) > ORDER_WINDOW_CENTS:
             raise estate_error(("market_price_band",
                                 f"挂单价必须在现价上下 {ORDER_WINDOW_CENTS // 100} 元以内"))
+        if tradable_milli(conn, side, symbol) <= 0:
+            # 这一侧没有额度了：挂上去也永远不会成交（结算同样受额度限制），
+            # 与其让玩家等到 24 小时后过期，不如当场说清楚。
+            raise _liquidity_error(side)
         open_orders = conn.execute("SELECT COUNT(*) FROM estate_market_orders "
                                    "WHERE username=? AND status='open'",
                                    (username,)).fetchone()[0]
