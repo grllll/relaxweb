@@ -480,17 +480,29 @@ CSS 只需新增盘口 5 档、挂单列表两组样式，其余复用现有 est
 
 ---
 
-## 9. 表结构变更：先加列，最后才换纪元
+## 9. 表结构变更：默认不清数据
 
-行情的所有权属挂在一个纪元常量上：
+版本号只是**记录**，不是"清库开关"：
 
 ```python
-MARKET_EPOCH = 4        # estate/market.py；改动它 = 重开整个股市
+MARKET_EPOCH = 5                  # 当前结构版本，用于排查
+MARKET_MIN_COMPATIBLE_EPOCH = 4   # 代码能直接读的最老结构
 ```
 
-`init_estate` 在启动时比较库里的纪元与常量，不一致就 **DROP 掉全部行情表**再重建：
-持仓、tick、K 线、委托、成交流水与印钞预算一起消失，标的锚回到默认 100.00 点。
-之后写入新纪元，重复初始化不会再次清库。
+`init_estate` 启动时只做一件事：**如果库里的结构比 `MARKET_MIN_COMPATIBLE_EPOCH` 还老**
+（读不动了），才重建行情表；否则原地继续用，只把版本号更新一下。
+
+**库里版本比代码新也不清**——线上先上过一次带新版本号的部署（历史遗留），
+之后回滚到旧代码不会因此丢数据。
+
+重建时也不是 `DROP`，而是**改名退役**：
+
+```
+estate_market_positions → estate_market_positions_epoch2
+```
+
+新表照常建，旧表留在库里随时能 `SELECT` 查回来（`retire_market_tables`），
+只保留最近 `MARKET_ARCHIVE_KEEP` 代。索引名在 SQLite 里全局唯一，所以要一并让位。
 
 ### 9.1 改表结构时的判断顺序
 
@@ -501,10 +513,11 @@ MARKET_EPOCH = 4        # estate/market.py；改动它 = 重开整个股市
 | 给已有表加列（带默认值） | `PRAGMA table_info` 检查后 `ALTER TABLE ... ADD COLUMN` | ❌ 不会 |
 | 加新表 / 加索引 | `CREATE TABLE IF NOT EXISTS` | ❌ 不会 |
 | 改主键、改 CHECK 约束、删列 | SQLite 需要重建表：建 `_new` → `INSERT SELECT` → 改名（`estate_profiles` 就是这么做的） | ❌ 不会 |
-| **语义本身变了**（例如把"份数额度"改成"金币额度"、把单标的改成多标的） | 换纪元 | ✅ **会** |
+| **语义本身变了**（例如把"份数额度"改成"金币额度"、把单标的改成多标的） | 抬高 `MARKET_MIN_COMPATIBLE_EPOCH` | ⚠️ 旧表退役留档，新表为空 |
 
-`estate_market_candles` 的 `volume_milli` / `volume_cents` 两列走的就是第一条：
-换纪元只是因为当时把"加列"误判成了"结构不兼容"。
+`estate_market_candles` 的 `volume_milli` / `volume_cents` 两列走的就是第一条。
+最初的实现误把它当成"结构不兼容"去抬版本号，结果部署即清库——这条规则就是为了
+不再犯同一个错误。
 
 ### 9.2 换纪元的代价
 

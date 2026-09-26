@@ -194,11 +194,13 @@ def init_estate(conn):
         value TEXT NOT NULL
     )""")
     from estate.market import (
-        MARKET_EPOCH, market_epoch, market_tables, seed_market, set_market_epoch,
+        MARKET_EPOCH, MARKET_MIN_COMPATIBLE_EPOCH, market_epoch, retire_market_tables,
+        seed_market, set_market_epoch,
     )
-    if market_epoch(conn) != MARKET_EPOCH:
-        for table in market_tables():
-            conn.execute(f"DROP TABLE IF EXISTS {table}")
+    stored_epoch = market_epoch(conn)
+    if stored_epoch is not None and stored_epoch < MARKET_MIN_COMPATIBLE_EPOCH:
+        # 只有结构真的读不动了才重建，而且是改名退役、不是删除（见 docs §9）。
+        retire_market_tables(conn, stored_epoch)
     conn.execute("""CREATE TABLE IF NOT EXISTS estate_market_symbols (
         symbol TEXT PRIMARY KEY,
         name TEXT NOT NULL,

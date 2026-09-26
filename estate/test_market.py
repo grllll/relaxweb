@@ -456,27 +456,13 @@ class MarketResetTests(unittest.TestCase):
     def test_additive_columns_do_not_need_a_new_epoch(self):
         """加列是向后兼容变更：老库补列即可，绝不能顺手换纪元把行情清空。"""
         from estate.market import MARKET_EPOCH
-        conn = sqlite3.connect(":memory:")
-        conn.execute("CREATE TABLE users(username TEXT PRIMARY KEY,coins REAL NOT NULL)")
-        conn.execute("CREATE TABLE coin_transactions(username TEXT,amount REAL,kind TEXT,"
-                     "detail TEXT,ref TEXT)")
-        conn.execute("INSERT INTO users VALUES ('heitaoja',100000)")
-        # 造出"上一版部署后"的库：纪元已是当前值，但 K 线表没有成交量两列。
-        conn.execute("CREATE TABLE estate_market_meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
-        conn.execute("INSERT INTO estate_market_meta VALUES ('epoch',?)", (str(MARKET_EPOCH),))
-        conn.execute("CREATE TABLE estate_market_candles (symbol TEXT NOT NULL, period TEXT NOT NULL,"
-                     "start_minute INTEGER NOT NULL, open_cents INTEGER NOT NULL,"
-                     "high_cents INTEGER NOT NULL, low_cents INTEGER NOT NULL,"
-                     "close_cents INTEGER NOT NULL, PRIMARY KEY(symbol,period,start_minute))")
-        conn.execute("CREATE TABLE estate_market_positions (username TEXT NOT NULL,"
-                     "symbol TEXT NOT NULL, shares_milli INTEGER NOT NULL DEFAULT 0,"
-                     "cost_basis_cents INTEGER NOT NULL DEFAULT 0,"
-                     "realized_pnl_cents INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(username,symbol))")
+        conn = self._legacy_conn(epoch=MARKET_EPOCH)
         conn.execute("INSERT INTO estate_market_positions VALUES "
                      "('heitaoja','XTIDE',1999000,215492200,12550)")
         for index in range(50):
             conn.execute("INSERT INTO estate_market_candles VALUES ('XTIDE','minute',?,?,?,?,?)",
                          (1000 + index, 100000, 101000, 99000, 100500))
+        conn.commit()
 
         init_estate(conn)
 
@@ -491,46 +477,63 @@ class MarketResetTests(unittest.TestCase):
                                       "WHERE key='epoch'").fetchone()[0], str(MARKET_EPOCH))
         conn.close()
 
-    def test_new_epoch_wipes_everything_and_reseeds_symbols(self):
-        from estate.market import MARKET_EPOCH, set_market_epoch
+    def test_epoch_from_a_newer_deploy_keeps_the_data(self):
+        """库里纪元比代码新（线上先上过带新纪元的部署）也不该清库。"""
+        from estate.market import MARKET_EPOCH
+        conn = self._legacy_conn(epoch=MARKET_EPOCH + 1)
+        conn.execute("INSERT INTO estate_market_positions VALUES "
+                     "('heitaoja','XTIDE',1999000,215492200,12550)")
+        for index in range(10):
+            conn.execute("INSERT INTO estate_market_candles VALUES ('XTIDE','minute',?,?,?,?,?)",
+                         (1000 + index, 100000, 101000, 99000, 100500))
+        conn.commit()
+
+        init_estate(conn)
+
+        self.assertEqual(conn.execute("SELECT shares_milli FROM estate_market_positions").fetchone(),
+                         (1999000,))
+        self.assertEqual(conn.execute("SELECT COUNT(*) FROM estate_market_candles").fetchone()[0], 10)
+        conn.close()
+
+    def test_incompatible_old_epoch_retires_tables_instead_of_dropping(self):
+        """结构读不动时才重建，而且旧表改名保留，随时能查回来。"""
+        conn = self._legacy_conn(epoch=2)
+        conn.execute("INSERT INTO estate_market_positions VALUES "
+                     "('heitaoja','XTIDE',1999000,215492200,12550)")
+        conn.commit()
+
+        init_estate(conn)
+
+        # 新表是空的，但旧数据改名留档，没有丢
+        self.assertEqual(conn.execute("SELECT COUNT(*) FROM estate_market_positions").fetchone()[0], 0)
+        self.assertEqual(conn.execute("SELECT shares_milli FROM estate_market_positions_epoch2 "
+                                      "WHERE username='heitaoja'").fetchone(), (1999000,))
+        # 重复初始化不会反复退役
+        init_estate(conn)
+        self.assertEqual(conn.execute("SELECT COUNT(*) FROM estate_market_positions_epoch2 "
+                                      "WHERE username='heitaoja'").fetchone()[0], 1)
+        conn.close()
+
+    @staticmethod
+    def _legacy_conn(epoch):
+        """造一个"上一版部署后"的库：指定纪元 + 没有成交量两列的 K 线表。"""
         conn = sqlite3.connect(":memory:")
         conn.execute("CREATE TABLE users(username TEXT PRIMARY KEY,coins REAL NOT NULL)")
-        conn.execute("CREATE TABLE coin_transactions(username TEXT,amount REAL,kind TEXT,detail TEXT,ref TEXT)")
-        conn.execute("INSERT INTO users VALUES ('alice',10000)")
-        init_estate(conn)
-        conn.execute("INSERT INTO estate_market_positions VALUES ('alice','XTIDE',1500,77700,0)")
-        conn.execute("INSERT INTO estate_market_ticks VALUES ('XTIDE',100,77700)")
-        conn.execute("INSERT INTO estate_market_candles VALUES "
-                     "('XTIDE','minute',100,77700,77700,77700,77700,1000,77700)")
-        conn.execute("INSERT INTO estate_market_orders(username,symbol,side,price_cents,qty_milli,"
-                     "created_minute,expires_minute) VALUES ('alice','XTIDE','buy',77700,1000,100,200)")
-        conn.execute("INSERT INTO estate_market_fills(symbol,username,side,minute,price_cents,"
-                     "qty_milli,amount_cents) VALUES ('XTIDE','alice','buy',100,77700,1000,77700)")
-        conn.execute("INSERT INTO estate_market_printed VALUES (1,50000)")
-        conn.execute("UPDATE estate_market_symbols SET anchor_cents=77700,price_cents=77700")
-        conn.execute("CREATE TABLE estate_market_index (id INTEGER PRIMARY KEY, price_cents INTEGER)")
-
-        set_market_epoch(conn, MARKET_EPOCH - 1)
-        init_estate(conn)
-
-        for table in ("estate_market_positions", "estate_market_ticks", "estate_market_candles",
-                      "estate_market_orders", "estate_market_fills", "estate_market_printed"):
-            self.assertEqual(conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0], 0, table)
-        self.assertEqual(conn.execute("SELECT anchor_cents,price_cents,ou_slot,inventory_milli "
-                                      "FROM estate_market_symbols WHERE symbol='XTIDE'").fetchone(),
-                         (100000.0, 100000, -1, 0))
-        self.assertIsNone(conn.execute("SELECT 1 FROM sqlite_master "
-                                       "WHERE name='estate_market_index'").fetchone())
-        self.assertEqual(conn.execute("SELECT COUNT(*) FROM estate_market_symbols").fetchone()[0],
-                         len(MARKET_SYMBOLS))
-        self.assertEqual(conn.execute("SELECT value FROM estate_market_meta "
-                                      "WHERE key='epoch'").fetchone()[0], str(MARKET_EPOCH))
-        # 同一纪元重复初始化不会再次清库
-        conn.execute("UPDATE estate_market_symbols SET price_cents=424242 WHERE symbol='XTIDE'")
-        init_estate(conn)
-        self.assertEqual(conn.execute("SELECT price_cents FROM estate_market_symbols "
-                                      "WHERE symbol='XTIDE'").fetchone()[0], 424242)
-        conn.close()
+        conn.execute("CREATE TABLE coin_transactions(username TEXT,amount REAL,kind TEXT,"
+                     "detail TEXT,ref TEXT)")
+        conn.execute("INSERT INTO users VALUES ('heitaoja',100000)")
+        conn.execute("CREATE TABLE estate_market_meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
+        conn.execute("INSERT INTO estate_market_meta VALUES ('epoch',?)", (str(epoch),))
+        conn.execute("CREATE TABLE estate_market_candles (symbol TEXT NOT NULL, period TEXT NOT NULL,"
+                     "start_minute INTEGER NOT NULL, open_cents INTEGER NOT NULL,"
+                     "high_cents INTEGER NOT NULL, low_cents INTEGER NOT NULL,"
+                     "close_cents INTEGER NOT NULL, PRIMARY KEY(symbol,period,start_minute))")
+        conn.execute("CREATE TABLE estate_market_positions (username TEXT NOT NULL,"
+                     "symbol TEXT NOT NULL, shares_milli INTEGER NOT NULL DEFAULT 0,"
+                     "cost_basis_cents INTEGER NOT NULL DEFAULT 0,"
+                     "realized_pnl_cents INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(username,symbol))")
+        conn.commit()
+        return conn
 
 
 class SplitTests(unittest.TestCase):

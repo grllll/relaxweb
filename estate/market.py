@@ -42,9 +42,14 @@ SYMBOL_INFO = {item["symbol"]: item for item in MARKET_SYMBOLS}
 SYMBOLS = tuple(item["symbol"] for item in MARKET_SYMBOLS)
 DEFAULT_SYMBOL = SYMBOLS[0]
 
-# 市场纪元：改动它就等于重开整个股市——旧持仓、K 线、委托、流水与印钞预算
-# 全部重置，不做任何旧数据迁移（见 docs/stock-market-design.md §9）。
-MARKET_EPOCH = 4
+# 市场结构版本：只用于排查，**不再决定生死**。库里的纪元比它新（例如线上先上了
+# 一次带新纪元的部署）或旧，只要还在兼容区间内就原地继续用，不会清数据。
+MARKET_EPOCH = 5
+# 代码能直接读的最老结构。只有比它还老的库才会走退役重建（见 §9）。
+MARKET_MIN_COMPATIBLE_EPOCH = 4
+# 退役表保留最近几代（表名形如 estate_market_positions_epoch2）。
+MARKET_ARCHIVE_KEEP = 2
+MARKET_INDEXES = ("idx_market_orders_open", "idx_market_orders_user", "idx_market_fills_user")
 QUANTITY_PATTERN = re.compile(r"^[0-9]+(?:\.[0-9]{1,3})?$")
 CANDLE_LIMITS = {"minute": 60, "hour": 72, "day": 90}
 
@@ -106,6 +111,44 @@ def market_tables():
     return ("estate_market_positions", "estate_market_ticks", "estate_market_candles",
             "estate_market_orders", "estate_market_fills", "estate_market_printed",
             "estate_market_symbols", "estate_market_index")
+
+
+def retire_market_tables(conn, epoch):
+    """结构不兼容时把旧表**改名退役**而不是删除，之后照常建新表。
+
+    改名而不是 DROP：万一判断错了，数据还在 ``<表名>_epoch<代号>`` 里，一条
+    ``SELECT`` 就能捞回来。索引名在 SQLite 里是全局唯一的，所以必须让位。
+    """
+    suffix = f"_epoch{epoch}"
+    for table in market_tables():
+        exists = conn.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",
+                              (table,)).fetchone()
+        if not exists:
+            continue
+        if table == "estate_market_index":      # 旧的外部报价表，没有保留价值
+            conn.execute(f"DROP TABLE IF EXISTS {table}")
+            continue
+        conn.execute(f"DROP TABLE IF EXISTS {table}{suffix}")
+        conn.execute(f"ALTER TABLE {table} RENAME TO {table}{suffix}")
+    for index in MARKET_INDEXES:
+        conn.execute(f"DROP INDEX IF EXISTS {index}")
+    prune_market_archives(conn)
+
+
+def prune_market_archives(conn, keep=MARKET_ARCHIVE_KEEP):
+    """只保留最近几代退役表，避免长期堆积。"""
+    rows = conn.execute("SELECT name FROM sqlite_master WHERE type='table' "
+                        "AND name LIKE 'estate\_market\_%\_epoch%' ESCAPE '\\'").fetchall()
+    generations = {}
+    for (name,) in rows:
+        head, _, tail = name.rpartition("_epoch")
+        try:
+            generations.setdefault(int(tail), set()).add(head)
+        except ValueError:
+            continue
+    for epoch in sorted(generations, reverse=True)[keep:]:
+        for head in generations[epoch]:
+            conn.execute(f'DROP TABLE IF EXISTS "{head}_epoch{epoch}"')
 
 
 def seed_market(conn):
