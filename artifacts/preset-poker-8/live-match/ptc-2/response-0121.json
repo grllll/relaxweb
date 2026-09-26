@@ -1,0 +1,11 @@
+{
+  "player": "ptc-2",
+  "seq": 121,
+  "decision": {
+    "action": "raise",
+    "raise_to": 24,
+    "reason": "顶对/超对，价值下注"
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3",
+  "session_id": "2044b252-84c2-4d19-a9f8-791d6a43708a"
+}

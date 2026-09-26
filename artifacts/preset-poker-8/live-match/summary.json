@@ -1,0 +1,121 @@
+{
+  "stacks": {
+    "standard-1": 439.0,
+    "ptc-1": 195.0,
+    "minimal-1": 205.0,
+    "cordis-1": 108.0,
+    "standard-2": 113.0,
+    "ptc-2": 69.0,
+    "minimal-2": 268.0,
+    "cordis-2": 203.0
+  },
+  "net": {
+    "standard-1": 239.0,
+    "ptc-1": -5.0,
+    "minimal-1": 5.0,
+    "cordis-1": -92.0,
+    "standard-2": -87.0,
+    "ptc-2": -131.0,
+    "minimal-2": 68.0,
+    "cordis-2": 3.0
+  },
+  "action_count": 122,
+  "hand_count": 8,
+  "seed": 2026092108,
+  "seats": [
+    "standard-1",
+    "ptc-1",
+    "minimal-1",
+    "cordis-1",
+    "standard-2",
+    "ptc-2",
+    "minimal-2",
+    "cordis-2"
+  ],
+  "presets": {
+    "standard-1": "standard",
+    "ptc-1": "ptc",
+    "minimal-1": "minimal",
+    "cordis-1": "cordis",
+    "standard-2": "standard",
+    "ptc-2": "ptc",
+    "minimal-2": "minimal",
+    "cordis-2": "cordis"
+  },
+  "mode": "eight-real-agent-clients",
+  "players": {
+    "standard-1": {
+      "player": "standard-1",
+      "preset": "standard",
+      "pid": 55571,
+      "session_id": "985507a7-3151-4a4d-8ef1-afde792acccb",
+      "strategy_version": "same-policy-v1",
+      "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+    },
+    "ptc-1": {
+      "player": "ptc-1",
+      "preset": "ptc",
+      "pid": 55337,
+      "session_id": "ee88527f-d54a-4395-8596-46ff9049175b",
+      "strategy_version": "same-policy-v1",
+      "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+    },
+    "minimal-1": {
+      "player": "minimal-1",
+      "preset": "minimal",
+      "pid": 55379,
+      "session_id": "4c117b0f-0915-463d-a638-6d33db7930d4",
+      "strategy_version": "same-policy-v1",
+      "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+    },
+    "cordis-1": {
+      "player": "cordis-1",
+      "preset": "cordis",
+      "pid": 55354,
+      "session_id": "7e8701ad-6cdc-470d-81a2-f51ed3eed0e2",
+      "strategy_version": "same-policy-v1",
+      "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+    },
+    "standard-2": {
+      "player": "standard-2",
+      "preset": "standard",
+      "pid": 55424,
+      "session_id": "2dc0674e-205e-4d4b-a007-299129849000",
+      "strategy_version": "same-policy-v1",
+      "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+    },
+    "ptc-2": {
+      "player": "ptc-2",
+      "preset": "ptc",
+      "pid": 55534,
+      "session_id": "2044b252-84c2-4d19-a9f8-791d6a43708a",
+      "strategy_version": "same-policy-v1",
+      "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+    },
+    "minimal-2": {
+      "player": "minimal-2",
+      "preset": "minimal",
+      "pid": 55307,
+      "session_id": "f9847567-17f6-4c84-9bd6-f49704822128",
+      "strategy_version": "same-policy-v1",
+      "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+    },
+    "cordis-2": {
+      "player": "cordis-2",
+      "preset": "cordis",
+      "pid": 55439,
+      "session_id": "e36ccfd0-59eb-42ff-8a1a-2b43a675f5d7",
+      "strategy_version": "same-policy-v1",
+      "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+    }
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3",
+  "checks": [
+    "52张无重复牌",
+    "合法动作",
+    "逐动作策略一致",
+    "1600筹码守恒",
+    "投入与分池守恒",
+    "独立牌型校验"
+  ]
+}

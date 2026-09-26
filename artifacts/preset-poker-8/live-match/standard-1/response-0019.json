@@ -1,0 +1,10 @@
+{
+  "player": "standard-1",
+  "seq": 19,
+  "decision": {
+    "action": "call",
+    "reason": "翻前入池范围；补 2 ≤ 阈值 6"
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3",
+  "session_id": "985507a7-3151-4a4d-8ef1-afde792acccb"
+}

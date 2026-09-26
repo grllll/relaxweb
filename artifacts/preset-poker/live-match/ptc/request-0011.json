@@ -1,0 +1,46 @@
+{
+  "seq": 11,
+  "hand": 2,
+  "player": "ptc",
+  "stage": "preflop",
+  "hole": [
+    [
+      14,
+      1
+    ],
+    [
+      13,
+      1
+    ]
+  ],
+  "board": [],
+  "dealer": "ptc",
+  "pot": 5.0,
+  "current_bet": 2,
+  "to_call": 2.0,
+  "street_committed": {
+    "minimal": 1.0,
+    "cordis": 2.0,
+    "standard": 2.0,
+    "ptc": 0.0
+  },
+  "stacks": {
+    "standard": 210.0,
+    "ptc": 194.0,
+    "minimal": 193.0,
+    "cordis": 198
+  },
+  "folded": [],
+  "legal": {
+    "fold": true,
+    "check": false,
+    "call": true,
+    "call_amount": 2.0,
+    "can_raise": true,
+    "raise_min": 4,
+    "raise_max": 194.0,
+    "allin": true,
+    "allin_to": 194.0
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+}

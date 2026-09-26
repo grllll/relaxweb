@@ -1,0 +1,10 @@
+{
+  "player": "cordis",
+  "seq": 16,
+  "decision": {
+    "action": "fold",
+    "reason": "无足够成牌或听牌；需补 8 > 阈值 0"
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3",
+  "session_id": "04caabc3-82f6-4f5e-9edc-1004d3138fb0"
+}

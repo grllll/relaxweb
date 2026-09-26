@@ -1,0 +1,10 @@
+{
+  "player": "cordis-2",
+  "seq": 80,
+  "decision": {
+    "action": "check",
+    "reason": "翻前入池范围；免费过牌"
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3",
+  "session_id": "e36ccfd0-59eb-42ff-8a1a-2b43a675f5d7"
+}

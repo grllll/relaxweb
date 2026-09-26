@@ -1,0 +1,62 @@
+{
+  "standard": {
+    "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/4e1b0a38-03c2-4652-8237-67e0a9537883/session.v4.jsonl.zstd",
+    "physical_header": {
+      "type": "session",
+      "version": 4,
+      "id": "4e1b0a38-03c2-4652-8237-67e0a9537883",
+      "createdAt": 1789885423148,
+      "cwd": "/Users/gengruilin/relaxweb",
+      "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+      "isSeeded": false,
+      "origin": "subagent",
+      "delegationDepth": 1,
+      "agentPreset": "standard"
+    }
+  },
+  "ptc": {
+    "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/29e9cf87-e3ba-4273-b4f2-72f78ef7633c/session.v4.jsonl.zstd",
+    "physical_header": {
+      "type": "session",
+      "version": 4,
+      "id": "29e9cf87-e3ba-4273-b4f2-72f78ef7633c",
+      "createdAt": 1789885423150,
+      "cwd": "/Users/gengruilin/relaxweb",
+      "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+      "isSeeded": false,
+      "origin": "subagent",
+      "delegationDepth": 1,
+      "agentPreset": "ptc"
+    }
+  },
+  "minimal": {
+    "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/c135fca8-afac-4c73-a83a-aa1e303f0de3/session.v4.jsonl.zstd",
+    "physical_header": {
+      "type": "session",
+      "version": 4,
+      "id": "c135fca8-afac-4c73-a83a-aa1e303f0de3",
+      "createdAt": 1789885423151,
+      "cwd": "/Users/gengruilin/relaxweb",
+      "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+      "isSeeded": false,
+      "origin": "subagent",
+      "delegationDepth": 1,
+      "agentPreset": "minimal"
+    }
+  },
+  "cordis": {
+    "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/04caabc3-82f6-4f5e-9edc-1004d3138fb0/session.v4.jsonl.zstd",
+    "physical_header": {
+      "type": "session",
+      "version": 4,
+      "id": "04caabc3-82f6-4f5e-9edc-1004d3138fb0",
+      "createdAt": 1789885423152,
+      "cwd": "/Users/gengruilin/relaxweb",
+      "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+      "isSeeded": false,
+      "origin": "subagent",
+      "delegationDepth": 1,
+      "agentPreset": "cordis"
+    }
+  }
+}

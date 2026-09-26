@@ -1,0 +1,55 @@
+{
+  "seq": 1,
+  "hand": 1,
+  "player": "cordis-1",
+  "stage": "preflop",
+  "hole": [
+    [
+      5,
+      1
+    ],
+    [
+      14,
+      1
+    ]
+  ],
+  "board": [],
+  "dealer": "standard-1",
+  "pot": 3.0,
+  "current_bet": 2,
+  "to_call": 2.0,
+  "street_committed": {
+    "ptc-1": 1.0,
+    "minimal-1": 2.0,
+    "cordis-1": 0.0,
+    "standard-2": 0.0,
+    "ptc-2": 0.0,
+    "minimal-2": 0.0,
+    "cordis-2": 0.0,
+    "standard-1": 0.0
+  },
+  "stacks": {
+    "standard-1": 200,
+    "ptc-1": 199,
+    "minimal-1": 198,
+    "cordis-1": 200,
+    "standard-2": 200,
+    "ptc-2": 200,
+    "minimal-2": 200,
+    "cordis-2": 200
+  },
+  "folded": [],
+  "allin": [],
+  "legal": {
+    "fold": true,
+    "check": false,
+    "call": true,
+    "call_amount": 2.0,
+    "can_raise": true,
+    "raise_min": 4,
+    "raise_max": 200.0,
+    "allin": true,
+    "allin_to": 200.0
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+}

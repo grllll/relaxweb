@@ -1,0 +1,55 @@
+{
+  "stacks": {
+    "standard": 98.0,
+    "ptc": 80.0,
+    "minimal": 320.0,
+    "cordis": 302.0
+  },
+  "net": {
+    "standard": -102.0,
+    "ptc": -120.0,
+    "minimal": 120.0,
+    "cordis": 102.0
+  },
+  "action_count": 63,
+  "mode": "four-real-agent-clients",
+  "players": {
+    "standard": {
+      "player": "standard",
+      "pid": 53675,
+      "session_id": "4e1b0a38-03c2-4652-8237-67e0a9537883",
+      "strategy_version": "same-policy-v1",
+      "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+    },
+    "ptc": {
+      "player": "ptc",
+      "pid": 53698,
+      "session_id": "29e9cf87-e3ba-4273-b4f2-72f78ef7633c",
+      "strategy_version": "same-policy-v1",
+      "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+    },
+    "minimal": {
+      "player": "minimal",
+      "pid": 53714,
+      "session_id": "c135fca8-afac-4c73-a83a-aa1e303f0de3",
+      "strategy_version": "same-policy-v1",
+      "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+    },
+    "cordis": {
+      "player": "cordis",
+      "pid": 53687,
+      "session_id": "04caabc3-82f6-4f5e-9edc-1004d3138fb0",
+      "strategy_version": "same-policy-v1",
+      "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+    }
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3",
+  "checks": [
+    "52 张无重复牌",
+    "正确行动顺序与合法动作",
+    "逐动作策略一致",
+    "逐动作总筹码 800",
+    "投入与分池守恒",
+    "两套牌型计算一致"
+  ]
+}

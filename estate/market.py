@@ -330,15 +330,47 @@ def store_market_ticks(conn, symbol, rows):
 def _market_candles(conn, symbol):
     result = {}
     for period, limit in CANDLE_LIMITS.items():
-        rows = conn.execute("SELECT start_minute,open_cents,high_cents,low_cents,close_cents "
-                            "FROM estate_market_candles WHERE symbol=? AND period=? "
-                            "ORDER BY start_minute DESC LIMIT ?",
+        rows = conn.execute("SELECT start_minute,open_cents,high_cents,low_cents,close_cents,"
+                            "volume_milli,volume_cents FROM estate_market_candles "
+                            "WHERE symbol=? AND period=? ORDER BY start_minute DESC LIMIT ?",
                             (symbol, period, limit)).fetchall()
         result[period] = [
             {"time": start * 60, "open": opening / 100, "high": high / 100,
-             "low": low / 100, "close": closing / 100}
-            for start, opening, high, low, closing in reversed(rows)]
+             "low": low / 100, "close": closing / 100,
+             "volume": volume / 1000, "amount": amount / 100}
+            for start, opening, high, low, closing, volume, amount in reversed(rows)]
     return result
+
+
+def record_market_volume(conn, symbol, minute, qty_milli, amount_cents):
+    """把一笔成交累加进三档 K 线的成交量与成交额。
+
+    与报价不同，成交量是**累加**的：同一个分钟里多笔成交会叠加，
+    而 ``store_market_ticks`` 的 upsert 只更新高低收，不会把量清零。
+    """
+    for period, start in (("minute", minute), ("hour", minute // 60 * 60),
+                          ("day", (minute + 480) // 1440 * 1440 - 480)):
+        conn.execute("INSERT INTO estate_market_candles(symbol,period,start_minute,open_cents,"
+                     "high_cents,low_cents,close_cents,volume_milli,volume_cents) "
+                     "VALUES (?,?,?,0,0,0,0,?,?) ON CONFLICT(symbol,period,start_minute) "
+                     "DO UPDATE SET volume_milli=volume_milli+excluded.volume_milli,"
+                     "volume_cents=volume_cents+excluded.volume_cents",
+                     (symbol, period, start, qty_milli, amount_cents))
+
+
+def market_volume(conn, symbol, minute):
+    """本分钟与今日的成交量（份）与成交额（金币）。"""
+    day_start = (minute + 480) // 1440 * 1440 - 480
+    row = conn.execute("SELECT volume_milli,volume_cents FROM estate_market_candles "
+                       "WHERE symbol=? AND period='day' AND start_minute=?",
+                       (symbol, day_start)).fetchone()
+    day = row or (0, 0)
+    row = conn.execute("SELECT volume_milli,volume_cents FROM estate_market_candles "
+                       "WHERE symbol=? AND period='minute' AND start_minute=?",
+                       (symbol, minute)).fetchone()
+    current = row or (0, 0)
+    return {"minute": {"shares": current[0] / 1000, "amount": current[1] / 100},
+            "day": {"shares": day[0] / 1000, "amount": day[1] / 100}}
 
 
 def _split_market(conn, symbol, minute, anchor_cents, price_cents):
@@ -364,8 +396,8 @@ def _split_market(conn, symbol, minute, anchor_cents, price_cents):
                  "WHERE symbol=?", (symbol,))
     conn.execute("UPDATE estate_market_candles SET "
                  f"open_cents={halve('open_cents')},high_cents={halve('high_cents')},"
-                 f"low_cents={halve('low_cents')},close_cents={halve('close_cents')} "
-                 "WHERE symbol=?", (symbol,))
+                 f"low_cents={halve('low_cents')},close_cents={halve('close_cents')},"
+                 "volume_milli=volume_milli*? WHERE symbol=?", (factor, symbol))
     conn.execute(f"UPDATE estate_market_fills SET price_cents={halve('price_cents')},"
                  "qty_milli=qty_milli*? WHERE symbol=?", (factor, symbol))
     # 拆股后价格网格会出现 0.5 元，未成交委托无法平移，统一撤销并说明原因。
@@ -552,6 +584,7 @@ def market_snapshot(conn, username, now, adjust_coins, symbol=DEFAULT_SYMBOL):
             "quote_minute": minute, "quote_slot": int(now) // SLOT_SECONDS,
             "available": True, "fee_rate": float(TAKER_FEE_RATE),
             "maker_fee_rate": float(MAKER_FEE_RATE),
+            "volume": market_volume(conn, symbol, minute),
             "capacity_left": (cap - abs(inventory)) / 1000,
             "split_count": splits, "last_split_minute": last_split,
             "tradable_buy": tradable_milli(conn, "buy", symbol) / 1000,
@@ -685,6 +718,7 @@ def apply_fill(conn, symbol, username, side, amount_milli, price_cents, now, adj
                                        max(price_cents, moved), min(price_cents, moved), moved)])
     _record_fill(conn, symbol, username, side, int(now) // 60, price_cents, amount_milli, cents,
                  order_id)
+    record_market_volume(conn, symbol, int(now) // 60, amount_milli, cents)
     return {"cents": cents, "balance": balance, "price": moved,
             "average_price": float(notional / Decimal(amount_milli) * 1000 / 100)}
 

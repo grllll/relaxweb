@@ -1,0 +1,11 @@
+{
+  "player": "standard",
+  "seq": 2,
+  "decision": {
+    "action": "raise",
+    "raise_to": 6,
+    "reason": "翻前强牌 QQ+/AK，加注到 6"
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3",
+  "session_id": "4e1b0a38-03c2-4652-8237-67e0a9537883"
+}

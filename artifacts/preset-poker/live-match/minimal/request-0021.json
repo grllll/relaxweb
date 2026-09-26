@@ -1,0 +1,70 @@
+{
+  "seq": 21,
+  "hand": 2,
+  "player": "minimal",
+  "stage": "river",
+  "hole": [
+    [
+      8,
+      3
+    ],
+    [
+      8,
+      2
+    ]
+  ],
+  "board": [
+    [
+      13,
+      3
+    ],
+    [
+      8,
+      1
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      4,
+      0
+    ],
+    [
+      3,
+      1
+    ]
+  ],
+  "dealer": "ptc",
+  "pot": 72.0,
+  "current_bet": 0,
+  "to_call": 0.0,
+  "street_committed": {
+    "minimal": 0.0,
+    "cordis": 0.0,
+    "standard": 0.0,
+    "ptc": 0.0
+  },
+  "stacks": {
+    "standard": 206.0,
+    "ptc": 164.0,
+    "minimal": 164.0,
+    "cordis": 194.0
+  },
+  "folded": [
+    "cordis",
+    "standard"
+  ],
+  "legal": {
+    "fold": true,
+    "check": true,
+    "call": false,
+    "call_amount": 0.0,
+    "can_raise": true,
+    "raise_min": 2,
+    "raise_max": 164.0,
+    "allin": true,
+    "allin_to": 164.0
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3"
+}

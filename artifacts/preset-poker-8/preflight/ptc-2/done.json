@@ -1,0 +1,57 @@
+{
+  "ok": true,
+  "stacks": {
+    "standard-1": 439.0,
+    "ptc-1": 195.0,
+    "minimal-1": 205.0,
+    "cordis-1": 108.0,
+    "standard-2": 113.0,
+    "ptc-2": 69.0,
+    "minimal-2": 268.0,
+    "cordis-2": 203.0
+  },
+  "net": {
+    "standard-1": 239.0,
+    "ptc-1": -5.0,
+    "minimal-1": 5.0,
+    "cordis-1": -92.0,
+    "standard-2": -87.0,
+    "ptc-2": -131.0,
+    "minimal-2": 68.0,
+    "cordis-2": 3.0
+  },
+  "action_count": 122,
+  "hand_count": 8,
+  "seed": 2026092108,
+  "seats": [
+    "standard-1",
+    "ptc-1",
+    "minimal-1",
+    "cordis-1",
+    "standard-2",
+    "ptc-2",
+    "minimal-2",
+    "cordis-2"
+  ],
+  "presets": {
+    "standard-1": "standard",
+    "ptc-1": "ptc",
+    "minimal-1": "minimal",
+    "cordis-1": "cordis",
+    "standard-2": "standard",
+    "ptc-2": "ptc",
+    "minimal-2": "minimal",
+    "cordis-2": "cordis"
+  },
+  "mode": "local-preflight",
+  "players": {},
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3",
+  "checks": [
+    "52张无重复牌",
+    "合法动作",
+    "逐动作策略一致",
+    "1600筹码守恒",
+    "投入与分池守恒",
+    "独立牌型校验"
+  ]
+}

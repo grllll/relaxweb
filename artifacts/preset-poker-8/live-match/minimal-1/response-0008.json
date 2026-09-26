@@ -1,0 +1,10 @@
+{
+  "player": "minimal-1",
+  "seq": 8,
+  "decision": {
+    "action": "check",
+    "reason": "翻前范围外；免费过牌"
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3",
+  "session_id": "4c117b0f-0915-463d-a638-6d33db7930d4"
+}

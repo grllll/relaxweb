@@ -1,0 +1,11 @@
+{
+  "player": "ptc",
+  "seq": 22,
+  "decision": {
+    "action": "raise",
+    "raise_to": 48,
+    "reason": "两对及以上，价值下注/加注"
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3",
+  "session_id": "29e9cf87-e3ba-4273-b4f2-72f78ef7633c"
+}

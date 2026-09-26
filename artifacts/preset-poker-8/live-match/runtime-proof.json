@@ -1,0 +1,122 @@
+{
+  "standard-1": {
+    "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/985507a7-3151-4a4d-8ef1-afde792acccb/session.v4.jsonl.zstd",
+    "physical_header": {
+      "type": "session",
+      "version": 4,
+      "id": "985507a7-3151-4a4d-8ef1-afde792acccb",
+      "createdAt": 1789886683452,
+      "cwd": "/Users/gengruilin/relaxweb",
+      "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+      "isSeeded": false,
+      "origin": "subagent",
+      "delegationDepth": 1,
+      "agentPreset": "standard"
+    }
+  },
+  "ptc-1": {
+    "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/ee88527f-d54a-4395-8596-46ff9049175b/session.v4.jsonl.zstd",
+    "physical_header": {
+      "type": "session",
+      "version": 4,
+      "id": "ee88527f-d54a-4395-8596-46ff9049175b",
+      "createdAt": 1789886683453,
+      "cwd": "/Users/gengruilin/relaxweb",
+      "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+      "isSeeded": false,
+      "origin": "subagent",
+      "delegationDepth": 1,
+      "agentPreset": "ptc"
+    }
+  },
+  "minimal-1": {
+    "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/4c117b0f-0915-463d-a638-6d33db7930d4/session.v4.jsonl.zstd",
+    "physical_header": {
+      "type": "session",
+      "version": 4,
+      "id": "4c117b0f-0915-463d-a638-6d33db7930d4",
+      "createdAt": 1789886683453,
+      "cwd": "/Users/gengruilin/relaxweb",
+      "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+      "isSeeded": false,
+      "origin": "subagent",
+      "delegationDepth": 1,
+      "agentPreset": "minimal"
+    }
+  },
+  "cordis-1": {
+    "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/7e8701ad-6cdc-470d-81a2-f51ed3eed0e2/session.v4.jsonl.zstd",
+    "physical_header": {
+      "type": "session",
+      "version": 4,
+      "id": "7e8701ad-6cdc-470d-81a2-f51ed3eed0e2",
+      "createdAt": 1789886683454,
+      "cwd": "/Users/gengruilin/relaxweb",
+      "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+      "isSeeded": false,
+      "origin": "subagent",
+      "delegationDepth": 1,
+      "agentPreset": "cordis"
+    }
+  },
+  "standard-2": {
+    "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/2dc0674e-205e-4d4b-a007-299129849000/session.v4.jsonl.zstd",
+    "physical_header": {
+      "type": "session",
+      "version": 4,
+      "id": "2dc0674e-205e-4d4b-a007-299129849000",
+      "createdAt": 1789886683455,
+      "cwd": "/Users/gengruilin/relaxweb",
+      "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+      "isSeeded": false,
+      "origin": "subagent",
+      "delegationDepth": 1,
+      "agentPreset": "standard"
+    }
+  },
+  "ptc-2": {
+    "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/2044b252-84c2-4d19-a9f8-791d6a43708a/session.v4.jsonl.zstd",
+    "physical_header": {
+      "type": "session",
+      "version": 4,
+      "id": "2044b252-84c2-4d19-a9f8-791d6a43708a",
+      "createdAt": 1789886683456,
+      "cwd": "/Users/gengruilin/relaxweb",
+      "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+      "isSeeded": false,
+      "origin": "subagent",
+      "delegationDepth": 1,
+      "agentPreset": "ptc"
+    }
+  },
+  "minimal-2": {
+    "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/f9847567-17f6-4c84-9bd6-f49704822128/session.v4.jsonl.zstd",
+    "physical_header": {
+      "type": "session",
+      "version": 4,
+      "id": "f9847567-17f6-4c84-9bd6-f49704822128",
+      "createdAt": 1789886683457,
+      "cwd": "/Users/gengruilin/relaxweb",
+      "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+      "isSeeded": false,
+      "origin": "subagent",
+      "delegationDepth": 1,
+      "agentPreset": "minimal"
+    }
+  },
+  "cordis-2": {
+    "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/e36ccfd0-59eb-42ff-8a1a-2b43a675f5d7/session.v4.jsonl.zstd",
+    "physical_header": {
+      "type": "session",
+      "version": 4,
+      "id": "e36ccfd0-59eb-42ff-8a1a-2b43a675f5d7",
+      "createdAt": 1789886683458,
+      "cwd": "/Users/gengruilin/relaxweb",
+      "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+      "isSeeded": false,
+      "origin": "subagent",
+      "delegationDepth": 1,
+      "agentPreset": "cordis"
+    }
+  }
+}

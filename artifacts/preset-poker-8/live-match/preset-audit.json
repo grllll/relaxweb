@@ -1,0 +1,1854 @@
+{
+  "method": "Read original host session files, decode every Zstandard frame, whitelist identity/preset-selection/request-tool-catalog/tool-call metadata only.",
+  "limits": "Local unsigned records, not independent tamper-proof attestation. A checksum computed now detects future differences only. No full resolved plugin inventory was captured during this run.",
+  "hostExtensions": [
+    {
+      "seat": "minimal-1",
+      "additionalToolNames": [
+        "interrupt_agent",
+        "list_agents",
+        "poker_subagent",
+        "send_message",
+        "spawn_teammate",
+        "team_task_create",
+        "team_task_get",
+        "team_task_list",
+        "team_task_update",
+        "wait_agent"
+      ],
+      "note": "The effective minimal catalog was not an unextended single-tool environment; shared host tools were also visible."
+    },
+    {
+      "seat": "minimal-2",
+      "additionalToolNames": [
+        "interrupt_agent",
+        "list_agents",
+        "poker_subagent",
+        "send_message",
+        "spawn_teammate",
+        "team_task_create",
+        "team_task_get",
+        "team_task_list",
+        "team_task_update",
+        "wait_agent"
+      ],
+      "note": "The effective minimal catalog was not an unextended single-tool environment; shared host tools were also visible."
+    }
+  ],
+  "counts": {
+    "standard": 2,
+    "ptc": 2,
+    "minimal": 2,
+    "cordis": 2
+  },
+  "players": [
+    {
+      "seat": "standard-1",
+      "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/985507a7-3151-4a4d-8ef1-afde792acccb/session.v4.jsonl.zstd",
+      "sourceSha256": "32d9343196f62cb4877c1b4bb8bf85828589c85470af932c67b4a7a96b5082c3",
+      "physicalHeader": {
+        "type": "session",
+        "version": 4,
+        "id": "985507a7-3151-4a4d-8ef1-afde792acccb",
+        "createdAt": 1789886683452,
+        "cwd": "/Users/gengruilin/relaxweb",
+        "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1,
+        "agentPreset": "standard"
+      },
+      "selection": [
+        {
+          "seq": 3,
+          "time": 1789886683484,
+          "agentPreset": "standard"
+        }
+      ],
+      "catalogs": [
+        {
+          "seq": 13,
+          "sha256": "e6cc1e9a1d08d8f21ab70cfcd3e5649dadd04321f5180fd8ae3ec90cf0a78a9e",
+          "tools": [
+            {
+              "name": "ask_user_question",
+              "parameterNames": [
+                "questions"
+              ],
+              "schemaSha256": "58adb302897a1b16a7e4d88d63edd4726ba151499741a4c4ab16fa170cb462a5"
+            },
+            {
+              "name": "bash",
+              "parameterNames": [
+                "command",
+                "description",
+                "timeoutMs",
+                "workdir",
+                "run_in_background",
+                "sandbox_permissions",
+                "justification"
+              ],
+              "schemaSha256": "3778e9ee497ce61e8a6adfedf779ee5e498895414b1e31bbd50d6b110bd14246"
+            },
+            {
+              "name": "create_goal",
+              "parameterNames": [
+                "objective",
+                "max_goal_rounds"
+              ],
+              "schemaSha256": "ecd856bd5ab0791ded562a467897dd300d45078b3759ad552e442e376cb78d55"
+            },
+            {
+              "name": "edit",
+              "parameterNames": [
+                "file_path",
+                "old_string",
+                "new_string",
+                "replace_all",
+                "sandbox_permissions",
+                "justification"
+              ],
+              "schemaSha256": "5f33bca757f5d5eca23f65bcc4fba78f727373c38e9c9280f8d9b6eb4c1b5db8"
+            },
+            {
+              "name": "exit_plan_mode",
+              "parameterNames": [
+                "plan"
+              ],
+              "schemaSha256": "711dc6744327672099874600f709dc7a1e8117e1c91e711d87201cc9d357bc35"
+            },
+            {
+              "name": "get_goal",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "glob",
+              "parameterNames": [
+                "pattern",
+                "path"
+              ],
+              "schemaSha256": "d9a178cb82d2943ebcdd5ba3a034b09002994018add24139fee80a4aac1f14d3"
+            },
+            {
+              "name": "grep",
+              "parameterNames": [
+                "pattern",
+                "path",
+                "include"
+              ],
+              "schemaSha256": "2923f36d932ac82bffa39e87b9fbb0e85a50f272e8f9e9ef140244f4b4c8afe8"
+            },
+            {
+              "name": "interrupt_agent",
+              "parameterNames": [
+                "target"
+              ],
+              "schemaSha256": "2a3603a7938db6ffa2b4ab57d4dfdd0f4b04a2b5f4bf5b5b82866e1dcb659b73"
+            },
+            {
+              "name": "job_kill",
+              "parameterNames": [
+                "job_id",
+                "reason"
+              ],
+              "schemaSha256": "c8a5f3f4ffc184b4fc334b22e1a373ec3fbadf27fc99937dada6782c6cc3d3bb"
+            },
+            {
+              "name": "job_list",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "job_output",
+              "parameterNames": [
+                "job_id",
+                "wait",
+                "timeout_ms"
+              ],
+              "schemaSha256": "d7f15fec7442a4978c619649d9cb8b6e8013bb7091309fd60b7430a8336fddac"
+            },
+            {
+              "name": "list_agents",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "poker_subagent",
+              "parameterNames": [
+                "description",
+                "prompt",
+                "agent_preset",
+                "run_in_background"
+              ],
+              "schemaSha256": "237ededa38c6f4d9a3af93f54446165e7c4fd31ba6f5bdbf9f74c4793feb0eab"
+            },
+            {
+              "name": "present",
+              "parameterNames": [
+                "files"
+              ],
+              "schemaSha256": "351b79b89edefcfe20b43e7b13514ce2fd3825b6d5457cf484a45193e3789c6f"
+            },
+            {
+              "name": "read",
+              "parameterNames": [
+                "file_path",
+                "offset",
+                "limit"
+              ],
+              "schemaSha256": "ed1928bd4ff43fd006ad05b8d4e2a7dc184cc87648acf23ece650c5a4bfb6665"
+            },
+            {
+              "name": "read_image",
+              "parameterNames": [
+                "file_path"
+              ],
+              "schemaSha256": "c075c09b1a30464c22b418d7de5208de400cb283fb4e22fbbc0625c8d55356f1"
+            },
+            {
+              "name": "send_message",
+              "parameterNames": [
+                "target",
+                "message"
+              ],
+              "schemaSha256": "b3a99a7a28ab7d3bc4acdd844fd3460c124e393e4a219f56af591dcbfe7f72f9"
+            },
+            {
+              "name": "skill",
+              "parameterNames": [
+                "name"
+              ],
+              "schemaSha256": "4d1ee145bf3a31458b46d002747affcd5ec5b8143daf7520ea66e47767d677e5"
+            },
+            {
+              "name": "spawn_teammate",
+              "parameterNames": [
+                "name",
+                "description",
+                "prompt",
+                "context"
+              ],
+              "schemaSha256": "e3d8bbd493c56774cbd1f7746e16eb367cc55b64fb3a955fdfc0afb678f89f53"
+            },
+            {
+              "name": "subagent",
+              "parameterNames": [
+                "description",
+                "prompt",
+                "run_in_background"
+              ],
+              "schemaSha256": "966fdb816eebd51ce0d19c61b3267f7ef608fddb9f1ff190652240897af3b760"
+            },
+            {
+              "name": "subagent_fork",
+              "parameterNames": [
+                "description",
+                "prompt",
+                "run_in_background"
+              ],
+              "schemaSha256": "a4bf6ea18a704c27fc9770101653debc35cd65f80fa4e240da87cf92dbc7a18c"
+            },
+            {
+              "name": "team_task_create",
+              "parameterNames": [
+                "subject",
+                "description",
+                "blocked_by",
+                "write_scopes"
+              ],
+              "schemaSha256": "e2686696dd230580033092407af15db0de08c11fd97e210e236c235f13145903"
+            },
+            {
+              "name": "team_task_get",
+              "parameterNames": [
+                "task_id"
+              ],
+              "schemaSha256": "7685b6770286fbfab9094ef014188ad157bc52a3832f3b7f107c96b6f61328f8"
+            },
+            {
+              "name": "team_task_list",
+              "parameterNames": [
+                "status",
+                "owner",
+                "ready",
+                "cursor",
+                "limit"
+              ],
+              "schemaSha256": "ae1d0bba266fd4eb6b203b4033d73f3aae0c9bf9c9e32d18b17233fabc12d34a"
+            },
+            {
+              "name": "team_task_update",
+              "parameterNames": [
+                "task_id",
+                "expected_revision",
+                "action",
+                "subject",
+                "description",
+                "blocked_by",
+                "write_scopes",
+                "owner"
+              ],
+              "schemaSha256": "69f36a3b73ef8d7f5daeb161ef716bca246cbb924fbd97027a8fb0ccac99f1a2"
+            },
+            {
+              "name": "todo_write",
+              "parameterNames": [
+                "todos"
+              ],
+              "schemaSha256": "50fd402335241ae84b6e6157ddc30659c10b4bb9d51070181adb61f28fe29cb7"
+            },
+            {
+              "name": "update_goal",
+              "parameterNames": [
+                "goal_id",
+                "revision",
+                "action",
+                "objective",
+                "max_goal_rounds",
+                "blocked_reason"
+              ],
+              "schemaSha256": "669ff296d039c33954bf5de75ca064d671d7eafc32c5e57f73be32d0505f5f4c"
+            },
+            {
+              "name": "wait_agent",
+              "parameterNames": [
+                "timeout_ms"
+              ],
+              "schemaSha256": "096d6cad1fae1ee1641aeb9574573940873232ffc3468b5d8edfcd556a2fdbb2"
+            },
+            {
+              "name": "web_fetch",
+              "parameterNames": [
+                "url"
+              ],
+              "schemaSha256": "80e458d2421931f9aa04a014c34d2f25ed04f5a1c6e0afe818108b8fde27f0f9"
+            },
+            {
+              "name": "web_search",
+              "parameterNames": [
+                "queries"
+              ],
+              "schemaSha256": "7a36d470e7240b2261097fbfb53a188a5b06b03585fab7b7ad6b1418c42c5029"
+            },
+            {
+              "name": "workflow",
+              "parameterNames": [
+                "script",
+                "meta",
+                "args"
+              ],
+              "schemaSha256": "0126a685d42a7a8dd6005936c2483a25a389c97ba05d2cf569e33cf6c7a8bb50"
+            },
+            {
+              "name": "write",
+              "parameterNames": [
+                "file_path",
+                "content",
+                "sandbox_permissions",
+                "justification"
+              ],
+              "schemaSha256": "fe27a52e4abb358a2fb3adabc059d431531800f7e536f8390a4927fc8a9d7556"
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "seq": 17,
+          "type": "tool/call",
+          "name": "bash"
+        },
+        {
+          "seq": 22,
+          "type": "tool/call",
+          "name": "job_output"
+        }
+      ],
+      "descriptor": {
+        "seq": 7,
+        "version": 3,
+        "mode": "one-shot",
+        "provider": "spawn",
+        "label": "标准一号真实德扑玩家"
+      }
+    },
+    {
+      "seat": "ptc-1",
+      "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/ee88527f-d54a-4395-8596-46ff9049175b/session.v4.jsonl.zstd",
+      "sourceSha256": "75e28a1688f7d1cc3c8154b81a974b4b8b9b8235b3ae898e172bebd6922cc934",
+      "physicalHeader": {
+        "type": "session",
+        "version": 4,
+        "id": "ee88527f-d54a-4395-8596-46ff9049175b",
+        "createdAt": 1789886683453,
+        "cwd": "/Users/gengruilin/relaxweb",
+        "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1,
+        "agentPreset": "ptc"
+      },
+      "selection": [
+        {
+          "seq": 3,
+          "time": 1789886683483,
+          "agentPreset": "ptc"
+        }
+      ],
+      "catalogs": [
+        {
+          "seq": 13,
+          "sha256": "e73e4bdc62229206f4b781723b31b374b7229d9663549cfb271061c444ec2f61",
+          "tools": [
+            {
+              "name": "run_code",
+              "parameterNames": [
+                "code",
+                "description",
+                "timeoutMs",
+                "sandbox_permissions",
+                "justification"
+              ],
+              "schemaSha256": "f60e4e34889db684c23989325b411c1ceeb8552e20c85027c3c3e9804e4a549d"
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "seq": 17,
+          "type": "tool/call",
+          "name": "run_code"
+        },
+        {
+          "seq": 19,
+          "type": "tool/ptc-dispatch",
+          "name": "bash"
+        },
+        {
+          "seq": 24,
+          "type": "tool/call",
+          "name": "run_code"
+        },
+        {
+          "seq": 26,
+          "type": "tool/ptc-dispatch",
+          "name": "job_output"
+        }
+      ],
+      "descriptor": {
+        "seq": 7,
+        "version": 3,
+        "mode": "one-shot",
+        "provider": "spawn",
+        "label": "PTC一号真实德扑玩家"
+      }
+    },
+    {
+      "seat": "minimal-1",
+      "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/4c117b0f-0915-463d-a638-6d33db7930d4/session.v4.jsonl.zstd",
+      "sourceSha256": "8f867b2ec546da9518e9c11f673f353cce007e7c8a0b7fd210346b6f35aa859a",
+      "physicalHeader": {
+        "type": "session",
+        "version": 4,
+        "id": "4c117b0f-0915-463d-a638-6d33db7930d4",
+        "createdAt": 1789886683453,
+        "cwd": "/Users/gengruilin/relaxweb",
+        "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1,
+        "agentPreset": "minimal"
+      },
+      "selection": [
+        {
+          "seq": 3,
+          "time": 1789886683483,
+          "agentPreset": "minimal"
+        }
+      ],
+      "catalogs": [
+        {
+          "seq": 11,
+          "sha256": "f70fef80dfb8925ad747fd98b85ffec0241d655b9e08c4aa2be305b4cb1d595d",
+          "tools": [
+            {
+              "name": "bash",
+              "parameterNames": [
+                "command"
+              ],
+              "schemaSha256": "98f0fc292c5eef5d46bc74fc6aae8371d3bf640b853d75a8d020cf00b312b318"
+            },
+            {
+              "name": "interrupt_agent",
+              "parameterNames": [
+                "target"
+              ],
+              "schemaSha256": "2a3603a7938db6ffa2b4ab57d4dfdd0f4b04a2b5f4bf5b5b82866e1dcb659b73"
+            },
+            {
+              "name": "list_agents",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "poker_subagent",
+              "parameterNames": [
+                "description",
+                "prompt",
+                "agent_preset",
+                "run_in_background"
+              ],
+              "schemaSha256": "237ededa38c6f4d9a3af93f54446165e7c4fd31ba6f5bdbf9f74c4793feb0eab"
+            },
+            {
+              "name": "send_message",
+              "parameterNames": [
+                "target",
+                "message"
+              ],
+              "schemaSha256": "b3a99a7a28ab7d3bc4acdd844fd3460c124e393e4a219f56af591dcbfe7f72f9"
+            },
+            {
+              "name": "spawn_teammate",
+              "parameterNames": [
+                "name",
+                "description",
+                "prompt",
+                "context"
+              ],
+              "schemaSha256": "e3d8bbd493c56774cbd1f7746e16eb367cc55b64fb3a955fdfc0afb678f89f53"
+            },
+            {
+              "name": "team_task_create",
+              "parameterNames": [
+                "subject",
+                "description",
+                "blocked_by",
+                "write_scopes"
+              ],
+              "schemaSha256": "e2686696dd230580033092407af15db0de08c11fd97e210e236c235f13145903"
+            },
+            {
+              "name": "team_task_get",
+              "parameterNames": [
+                "task_id"
+              ],
+              "schemaSha256": "7685b6770286fbfab9094ef014188ad157bc52a3832f3b7f107c96b6f61328f8"
+            },
+            {
+              "name": "team_task_list",
+              "parameterNames": [
+                "status",
+                "owner",
+                "ready",
+                "cursor",
+                "limit"
+              ],
+              "schemaSha256": "ae1d0bba266fd4eb6b203b4033d73f3aae0c9bf9c9e32d18b17233fabc12d34a"
+            },
+            {
+              "name": "team_task_update",
+              "parameterNames": [
+                "task_id",
+                "expected_revision",
+                "action",
+                "subject",
+                "description",
+                "blocked_by",
+                "write_scopes",
+                "owner"
+              ],
+              "schemaSha256": "69f36a3b73ef8d7f5daeb161ef716bca246cbb924fbd97027a8fb0ccac99f1a2"
+            },
+            {
+              "name": "wait_agent",
+              "parameterNames": [
+                "timeout_ms"
+              ],
+              "schemaSha256": "096d6cad1fae1ee1641aeb9574573940873232ffc3468b5d8edfcd556a2fdbb2"
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "seq": 15,
+          "type": "tool/call",
+          "name": "bash"
+        }
+      ],
+      "descriptor": {
+        "seq": 7,
+        "version": 3,
+        "mode": "one-shot",
+        "provider": "spawn",
+        "label": "极简一号真实德扑玩家"
+      }
+    },
+    {
+      "seat": "cordis-1",
+      "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/7e8701ad-6cdc-470d-81a2-f51ed3eed0e2/session.v4.jsonl.zstd",
+      "sourceSha256": "c3b381887e238435726d6eef19ca0458393e68e8b1c07e82d94e0f38fa97a2b7",
+      "physicalHeader": {
+        "type": "session",
+        "version": 4,
+        "id": "7e8701ad-6cdc-470d-81a2-f51ed3eed0e2",
+        "createdAt": 1789886683454,
+        "cwd": "/Users/gengruilin/relaxweb",
+        "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1,
+        "agentPreset": "cordis"
+      },
+      "selection": [
+        {
+          "seq": 3,
+          "time": 1789886683483,
+          "agentPreset": "cordis"
+        }
+      ],
+      "catalogs": [
+        {
+          "seq": 13,
+          "sha256": "ceeca10323e0b551ebfa0b093027f98ed0b1c52878248efcd5fe56f54b4b30ad",
+          "tools": [
+            {
+              "name": "ask_user_question",
+              "parameterNames": [
+                "questions"
+              ],
+              "schemaSha256": "58adb302897a1b16a7e4d88d63edd4726ba151499741a4c4ab16fa170cb462a5"
+            },
+            {
+              "name": "bash",
+              "parameterNames": [
+                "command",
+                "description",
+                "timeoutMs",
+                "workdir",
+                "run_in_background",
+                "sandbox_permissions",
+                "justification"
+              ],
+              "schemaSha256": "3778e9ee497ce61e8a6adfedf779ee5e498895414b1e31bbd50d6b110bd14246"
+            },
+            {
+              "name": "cordis_inspect_list",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "cordis_inspect_query",
+              "parameterNames": [
+                "platform",
+                "provider",
+                "method",
+                "input"
+              ],
+              "schemaSha256": "a471939f7d06c603c338d6b8ed6a909e5a08d989fda7e5878ec43b0fd8814727"
+            },
+            {
+              "name": "create_goal",
+              "parameterNames": [
+                "objective",
+                "max_goal_rounds"
+              ],
+              "schemaSha256": "ecd856bd5ab0791ded562a467897dd300d45078b3759ad552e442e376cb78d55"
+            },
+            {
+              "name": "edit",
+              "parameterNames": [
+                "file_path",
+                "old_string",
+                "new_string",
+                "replace_all",
+                "sandbox_permissions",
+                "justification"
+              ],
+              "schemaSha256": "5f33bca757f5d5eca23f65bcc4fba78f727373c38e9c9280f8d9b6eb4c1b5db8"
+            },
+            {
+              "name": "exit_plan_mode",
+              "parameterNames": [
+                "plan"
+              ],
+              "schemaSha256": "711dc6744327672099874600f709dc7a1e8117e1c91e711d87201cc9d357bc35"
+            },
+            {
+              "name": "get_goal",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "glob",
+              "parameterNames": [
+                "pattern",
+                "path"
+              ],
+              "schemaSha256": "d9a178cb82d2943ebcdd5ba3a034b09002994018add24139fee80a4aac1f14d3"
+            },
+            {
+              "name": "grep",
+              "parameterNames": [
+                "pattern",
+                "path",
+                "include"
+              ],
+              "schemaSha256": "2923f36d932ac82bffa39e87b9fbb0e85a50f272e8f9e9ef140244f4b4c8afe8"
+            },
+            {
+              "name": "interrupt_agent",
+              "parameterNames": [
+                "target"
+              ],
+              "schemaSha256": "2a3603a7938db6ffa2b4ab57d4dfdd0f4b04a2b5f4bf5b5b82866e1dcb659b73"
+            },
+            {
+              "name": "job_kill",
+              "parameterNames": [
+                "job_id",
+                "reason"
+              ],
+              "schemaSha256": "c8a5f3f4ffc184b4fc334b22e1a373ec3fbadf27fc99937dada6782c6cc3d3bb"
+            },
+            {
+              "name": "job_list",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "job_output",
+              "parameterNames": [
+                "job_id",
+                "wait",
+                "timeout_ms"
+              ],
+              "schemaSha256": "d7f15fec7442a4978c619649d9cb8b6e8013bb7091309fd60b7430a8336fddac"
+            },
+            {
+              "name": "list_agents",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "plugin_manager",
+              "parameterNames": [
+                "action",
+                "target",
+                "enabled",
+                "approvedBuilds",
+                "registry",
+                "offset",
+                "limit"
+              ],
+              "schemaSha256": "dd9b1fc4a913e16a1c41b509f780df354307893de63e11928690a04e5bebc719"
+            },
+            {
+              "name": "poker_subagent",
+              "parameterNames": [
+                "description",
+                "prompt",
+                "agent_preset",
+                "run_in_background"
+              ],
+              "schemaSha256": "237ededa38c6f4d9a3af93f54446165e7c4fd31ba6f5bdbf9f74c4793feb0eab"
+            },
+            {
+              "name": "present",
+              "parameterNames": [
+                "files"
+              ],
+              "schemaSha256": "351b79b89edefcfe20b43e7b13514ce2fd3825b6d5457cf484a45193e3789c6f"
+            },
+            {
+              "name": "read",
+              "parameterNames": [
+                "file_path",
+                "offset",
+                "limit"
+              ],
+              "schemaSha256": "ed1928bd4ff43fd006ad05b8d4e2a7dc184cc87648acf23ece650c5a4bfb6665"
+            },
+            {
+              "name": "read_image",
+              "parameterNames": [
+                "file_path"
+              ],
+              "schemaSha256": "c075c09b1a30464c22b418d7de5208de400cb283fb4e22fbbc0625c8d55356f1"
+            },
+            {
+              "name": "send_message",
+              "parameterNames": [
+                "target",
+                "message"
+              ],
+              "schemaSha256": "b3a99a7a28ab7d3bc4acdd844fd3460c124e393e4a219f56af591dcbfe7f72f9"
+            },
+            {
+              "name": "skill",
+              "parameterNames": [
+                "name"
+              ],
+              "schemaSha256": "4d1ee145bf3a31458b46d002747affcd5ec5b8143daf7520ea66e47767d677e5"
+            },
+            {
+              "name": "spawn_teammate",
+              "parameterNames": [
+                "name",
+                "description",
+                "prompt",
+                "context"
+              ],
+              "schemaSha256": "e3d8bbd493c56774cbd1f7746e16eb367cc55b64fb3a955fdfc0afb678f89f53"
+            },
+            {
+              "name": "subagent",
+              "parameterNames": [
+                "description",
+                "prompt",
+                "run_in_background"
+              ],
+              "schemaSha256": "966fdb816eebd51ce0d19c61b3267f7ef608fddb9f1ff190652240897af3b760"
+            },
+            {
+              "name": "subagent_fork",
+              "parameterNames": [
+                "description",
+                "prompt",
+                "run_in_background"
+              ],
+              "schemaSha256": "a4bf6ea18a704c27fc9770101653debc35cd65f80fa4e240da87cf92dbc7a18c"
+            },
+            {
+              "name": "team_task_create",
+              "parameterNames": [
+                "subject",
+                "description",
+                "blocked_by",
+                "write_scopes"
+              ],
+              "schemaSha256": "e2686696dd230580033092407af15db0de08c11fd97e210e236c235f13145903"
+            },
+            {
+              "name": "team_task_get",
+              "parameterNames": [
+                "task_id"
+              ],
+              "schemaSha256": "7685b6770286fbfab9094ef014188ad157bc52a3832f3b7f107c96b6f61328f8"
+            },
+            {
+              "name": "team_task_list",
+              "parameterNames": [
+                "status",
+                "owner",
+                "ready",
+                "cursor",
+                "limit"
+              ],
+              "schemaSha256": "ae1d0bba266fd4eb6b203b4033d73f3aae0c9bf9c9e32d18b17233fabc12d34a"
+            },
+            {
+              "name": "team_task_update",
+              "parameterNames": [
+                "task_id",
+                "expected_revision",
+                "action",
+                "subject",
+                "description",
+                "blocked_by",
+                "write_scopes",
+                "owner"
+              ],
+              "schemaSha256": "69f36a3b73ef8d7f5daeb161ef716bca246cbb924fbd97027a8fb0ccac99f1a2"
+            },
+            {
+              "name": "todo_write",
+              "parameterNames": [
+                "todos"
+              ],
+              "schemaSha256": "50fd402335241ae84b6e6157ddc30659c10b4bb9d51070181adb61f28fe29cb7"
+            },
+            {
+              "name": "update_goal",
+              "parameterNames": [
+                "goal_id",
+                "revision",
+                "action",
+                "objective",
+                "max_goal_rounds",
+                "blocked_reason"
+              ],
+              "schemaSha256": "669ff296d039c33954bf5de75ca064d671d7eafc32c5e57f73be32d0505f5f4c"
+            },
+            {
+              "name": "wait_agent",
+              "parameterNames": [
+                "timeout_ms"
+              ],
+              "schemaSha256": "096d6cad1fae1ee1641aeb9574573940873232ffc3468b5d8edfcd556a2fdbb2"
+            },
+            {
+              "name": "web_fetch",
+              "parameterNames": [
+                "url"
+              ],
+              "schemaSha256": "80e458d2421931f9aa04a014c34d2f25ed04f5a1c6e0afe818108b8fde27f0f9"
+            },
+            {
+              "name": "web_search",
+              "parameterNames": [
+                "queries"
+              ],
+              "schemaSha256": "7a36d470e7240b2261097fbfb53a188a5b06b03585fab7b7ad6b1418c42c5029"
+            },
+            {
+              "name": "workflow",
+              "parameterNames": [
+                "script",
+                "meta",
+                "args"
+              ],
+              "schemaSha256": "0126a685d42a7a8dd6005936c2483a25a389c97ba05d2cf569e33cf6c7a8bb50"
+            },
+            {
+              "name": "write",
+              "parameterNames": [
+                "file_path",
+                "content",
+                "sandbox_permissions",
+                "justification"
+              ],
+              "schemaSha256": "fe27a52e4abb358a2fb3adabc059d431531800f7e536f8390a4927fc8a9d7556"
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "seq": 17,
+          "type": "tool/call",
+          "name": "bash"
+        },
+        {
+          "seq": 22,
+          "type": "tool/call",
+          "name": "job_output"
+        }
+      ],
+      "descriptor": {
+        "seq": 7,
+        "version": 3,
+        "mode": "one-shot",
+        "provider": "spawn",
+        "label": "创造一号真实德扑玩家"
+      }
+    },
+    {
+      "seat": "standard-2",
+      "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/2dc0674e-205e-4d4b-a007-299129849000/session.v4.jsonl.zstd",
+      "sourceSha256": "309da72ca53e0f66e53698e8abd21132b700ab0a9c099846338ac36b350456b7",
+      "physicalHeader": {
+        "type": "session",
+        "version": 4,
+        "id": "2dc0674e-205e-4d4b-a007-299129849000",
+        "createdAt": 1789886683455,
+        "cwd": "/Users/gengruilin/relaxweb",
+        "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1,
+        "agentPreset": "standard"
+      },
+      "selection": [
+        {
+          "seq": 3,
+          "time": 1789886683484,
+          "agentPreset": "standard"
+        }
+      ],
+      "catalogs": [
+        {
+          "seq": 13,
+          "sha256": "e6cc1e9a1d08d8f21ab70cfcd3e5649dadd04321f5180fd8ae3ec90cf0a78a9e",
+          "tools": [
+            {
+              "name": "ask_user_question",
+              "parameterNames": [
+                "questions"
+              ],
+              "schemaSha256": "58adb302897a1b16a7e4d88d63edd4726ba151499741a4c4ab16fa170cb462a5"
+            },
+            {
+              "name": "bash",
+              "parameterNames": [
+                "command",
+                "description",
+                "timeoutMs",
+                "workdir",
+                "run_in_background",
+                "sandbox_permissions",
+                "justification"
+              ],
+              "schemaSha256": "3778e9ee497ce61e8a6adfedf779ee5e498895414b1e31bbd50d6b110bd14246"
+            },
+            {
+              "name": "create_goal",
+              "parameterNames": [
+                "objective",
+                "max_goal_rounds"
+              ],
+              "schemaSha256": "ecd856bd5ab0791ded562a467897dd300d45078b3759ad552e442e376cb78d55"
+            },
+            {
+              "name": "edit",
+              "parameterNames": [
+                "file_path",
+                "old_string",
+                "new_string",
+                "replace_all",
+                "sandbox_permissions",
+                "justification"
+              ],
+              "schemaSha256": "5f33bca757f5d5eca23f65bcc4fba78f727373c38e9c9280f8d9b6eb4c1b5db8"
+            },
+            {
+              "name": "exit_plan_mode",
+              "parameterNames": [
+                "plan"
+              ],
+              "schemaSha256": "711dc6744327672099874600f709dc7a1e8117e1c91e711d87201cc9d357bc35"
+            },
+            {
+              "name": "get_goal",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "glob",
+              "parameterNames": [
+                "pattern",
+                "path"
+              ],
+              "schemaSha256": "d9a178cb82d2943ebcdd5ba3a034b09002994018add24139fee80a4aac1f14d3"
+            },
+            {
+              "name": "grep",
+              "parameterNames": [
+                "pattern",
+                "path",
+                "include"
+              ],
+              "schemaSha256": "2923f36d932ac82bffa39e87b9fbb0e85a50f272e8f9e9ef140244f4b4c8afe8"
+            },
+            {
+              "name": "interrupt_agent",
+              "parameterNames": [
+                "target"
+              ],
+              "schemaSha256": "2a3603a7938db6ffa2b4ab57d4dfdd0f4b04a2b5f4bf5b5b82866e1dcb659b73"
+            },
+            {
+              "name": "job_kill",
+              "parameterNames": [
+                "job_id",
+                "reason"
+              ],
+              "schemaSha256": "c8a5f3f4ffc184b4fc334b22e1a373ec3fbadf27fc99937dada6782c6cc3d3bb"
+            },
+            {
+              "name": "job_list",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "job_output",
+              "parameterNames": [
+                "job_id",
+                "wait",
+                "timeout_ms"
+              ],
+              "schemaSha256": "d7f15fec7442a4978c619649d9cb8b6e8013bb7091309fd60b7430a8336fddac"
+            },
+            {
+              "name": "list_agents",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "poker_subagent",
+              "parameterNames": [
+                "description",
+                "prompt",
+                "agent_preset",
+                "run_in_background"
+              ],
+              "schemaSha256": "237ededa38c6f4d9a3af93f54446165e7c4fd31ba6f5bdbf9f74c4793feb0eab"
+            },
+            {
+              "name": "present",
+              "parameterNames": [
+                "files"
+              ],
+              "schemaSha256": "351b79b89edefcfe20b43e7b13514ce2fd3825b6d5457cf484a45193e3789c6f"
+            },
+            {
+              "name": "read",
+              "parameterNames": [
+                "file_path",
+                "offset",
+                "limit"
+              ],
+              "schemaSha256": "ed1928bd4ff43fd006ad05b8d4e2a7dc184cc87648acf23ece650c5a4bfb6665"
+            },
+            {
+              "name": "read_image",
+              "parameterNames": [
+                "file_path"
+              ],
+              "schemaSha256": "c075c09b1a30464c22b418d7de5208de400cb283fb4e22fbbc0625c8d55356f1"
+            },
+            {
+              "name": "send_message",
+              "parameterNames": [
+                "target",
+                "message"
+              ],
+              "schemaSha256": "b3a99a7a28ab7d3bc4acdd844fd3460c124e393e4a219f56af591dcbfe7f72f9"
+            },
+            {
+              "name": "skill",
+              "parameterNames": [
+                "name"
+              ],
+              "schemaSha256": "4d1ee145bf3a31458b46d002747affcd5ec5b8143daf7520ea66e47767d677e5"
+            },
+            {
+              "name": "spawn_teammate",
+              "parameterNames": [
+                "name",
+                "description",
+                "prompt",
+                "context"
+              ],
+              "schemaSha256": "e3d8bbd493c56774cbd1f7746e16eb367cc55b64fb3a955fdfc0afb678f89f53"
+            },
+            {
+              "name": "subagent",
+              "parameterNames": [
+                "description",
+                "prompt",
+                "run_in_background"
+              ],
+              "schemaSha256": "966fdb816eebd51ce0d19c61b3267f7ef608fddb9f1ff190652240897af3b760"
+            },
+            {
+              "name": "subagent_fork",
+              "parameterNames": [
+                "description",
+                "prompt",
+                "run_in_background"
+              ],
+              "schemaSha256": "a4bf6ea18a704c27fc9770101653debc35cd65f80fa4e240da87cf92dbc7a18c"
+            },
+            {
+              "name": "team_task_create",
+              "parameterNames": [
+                "subject",
+                "description",
+                "blocked_by",
+                "write_scopes"
+              ],
+              "schemaSha256": "e2686696dd230580033092407af15db0de08c11fd97e210e236c235f13145903"
+            },
+            {
+              "name": "team_task_get",
+              "parameterNames": [
+                "task_id"
+              ],
+              "schemaSha256": "7685b6770286fbfab9094ef014188ad157bc52a3832f3b7f107c96b6f61328f8"
+            },
+            {
+              "name": "team_task_list",
+              "parameterNames": [
+                "status",
+                "owner",
+                "ready",
+                "cursor",
+                "limit"
+              ],
+              "schemaSha256": "ae1d0bba266fd4eb6b203b4033d73f3aae0c9bf9c9e32d18b17233fabc12d34a"
+            },
+            {
+              "name": "team_task_update",
+              "parameterNames": [
+                "task_id",
+                "expected_revision",
+                "action",
+                "subject",
+                "description",
+                "blocked_by",
+                "write_scopes",
+                "owner"
+              ],
+              "schemaSha256": "69f36a3b73ef8d7f5daeb161ef716bca246cbb924fbd97027a8fb0ccac99f1a2"
+            },
+            {
+              "name": "todo_write",
+              "parameterNames": [
+                "todos"
+              ],
+              "schemaSha256": "50fd402335241ae84b6e6157ddc30659c10b4bb9d51070181adb61f28fe29cb7"
+            },
+            {
+              "name": "update_goal",
+              "parameterNames": [
+                "goal_id",
+                "revision",
+                "action",
+                "objective",
+                "max_goal_rounds",
+                "blocked_reason"
+              ],
+              "schemaSha256": "669ff296d039c33954bf5de75ca064d671d7eafc32c5e57f73be32d0505f5f4c"
+            },
+            {
+              "name": "wait_agent",
+              "parameterNames": [
+                "timeout_ms"
+              ],
+              "schemaSha256": "096d6cad1fae1ee1641aeb9574573940873232ffc3468b5d8edfcd556a2fdbb2"
+            },
+            {
+              "name": "web_fetch",
+              "parameterNames": [
+                "url"
+              ],
+              "schemaSha256": "80e458d2421931f9aa04a014c34d2f25ed04f5a1c6e0afe818108b8fde27f0f9"
+            },
+            {
+              "name": "web_search",
+              "parameterNames": [
+                "queries"
+              ],
+              "schemaSha256": "7a36d470e7240b2261097fbfb53a188a5b06b03585fab7b7ad6b1418c42c5029"
+            },
+            {
+              "name": "workflow",
+              "parameterNames": [
+                "script",
+                "meta",
+                "args"
+              ],
+              "schemaSha256": "0126a685d42a7a8dd6005936c2483a25a389c97ba05d2cf569e33cf6c7a8bb50"
+            },
+            {
+              "name": "write",
+              "parameterNames": [
+                "file_path",
+                "content",
+                "sandbox_permissions",
+                "justification"
+              ],
+              "schemaSha256": "fe27a52e4abb358a2fb3adabc059d431531800f7e536f8390a4927fc8a9d7556"
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "seq": 17,
+          "type": "tool/call",
+          "name": "bash"
+        },
+        {
+          "seq": 22,
+          "type": "tool/call",
+          "name": "job_output"
+        }
+      ],
+      "descriptor": {
+        "seq": 7,
+        "version": 3,
+        "mode": "one-shot",
+        "provider": "spawn",
+        "label": "标准二号真实德扑玩家"
+      }
+    },
+    {
+      "seat": "ptc-2",
+      "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/2044b252-84c2-4d19-a9f8-791d6a43708a/session.v4.jsonl.zstd",
+      "sourceSha256": "351bf53444d9a7fe989ec50bc15f00a1ae1ad973b344f4ff5425add102ca1af0",
+      "physicalHeader": {
+        "type": "session",
+        "version": 4,
+        "id": "2044b252-84c2-4d19-a9f8-791d6a43708a",
+        "createdAt": 1789886683456,
+        "cwd": "/Users/gengruilin/relaxweb",
+        "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1,
+        "agentPreset": "ptc"
+      },
+      "selection": [
+        {
+          "seq": 3,
+          "time": 1789886683486,
+          "agentPreset": "ptc"
+        }
+      ],
+      "catalogs": [
+        {
+          "seq": 13,
+          "sha256": "e73e4bdc62229206f4b781723b31b374b7229d9663549cfb271061c444ec2f61",
+          "tools": [
+            {
+              "name": "run_code",
+              "parameterNames": [
+                "code",
+                "description",
+                "timeoutMs",
+                "sandbox_permissions",
+                "justification"
+              ],
+              "schemaSha256": "f60e4e34889db684c23989325b411c1ceeb8552e20c85027c3c3e9804e4a549d"
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "seq": 17,
+          "type": "tool/call",
+          "name": "run_code"
+        },
+        {
+          "seq": 19,
+          "type": "tool/ptc-dispatch",
+          "name": "bash"
+        },
+        {
+          "seq": 24,
+          "type": "tool/call",
+          "name": "run_code"
+        },
+        {
+          "seq": 26,
+          "type": "tool/ptc-dispatch",
+          "name": "job_output"
+        }
+      ],
+      "descriptor": {
+        "seq": 7,
+        "version": 3,
+        "mode": "one-shot",
+        "provider": "spawn",
+        "label": "PTC二号真实德扑玩家"
+      }
+    },
+    {
+      "seat": "minimal-2",
+      "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/f9847567-17f6-4c84-9bd6-f49704822128/session.v4.jsonl.zstd",
+      "sourceSha256": "ea49ac9bd05399efbf9a35eeea6fde04a38545b894001276320ab0be0c43eca1",
+      "physicalHeader": {
+        "type": "session",
+        "version": 4,
+        "id": "f9847567-17f6-4c84-9bd6-f49704822128",
+        "createdAt": 1789886683457,
+        "cwd": "/Users/gengruilin/relaxweb",
+        "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1,
+        "agentPreset": "minimal"
+      },
+      "selection": [
+        {
+          "seq": 3,
+          "time": 1789886683485,
+          "agentPreset": "minimal"
+        }
+      ],
+      "catalogs": [
+        {
+          "seq": 11,
+          "sha256": "f70fef80dfb8925ad747fd98b85ffec0241d655b9e08c4aa2be305b4cb1d595d",
+          "tools": [
+            {
+              "name": "bash",
+              "parameterNames": [
+                "command"
+              ],
+              "schemaSha256": "98f0fc292c5eef5d46bc74fc6aae8371d3bf640b853d75a8d020cf00b312b318"
+            },
+            {
+              "name": "interrupt_agent",
+              "parameterNames": [
+                "target"
+              ],
+              "schemaSha256": "2a3603a7938db6ffa2b4ab57d4dfdd0f4b04a2b5f4bf5b5b82866e1dcb659b73"
+            },
+            {
+              "name": "list_agents",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "poker_subagent",
+              "parameterNames": [
+                "description",
+                "prompt",
+                "agent_preset",
+                "run_in_background"
+              ],
+              "schemaSha256": "237ededa38c6f4d9a3af93f54446165e7c4fd31ba6f5bdbf9f74c4793feb0eab"
+            },
+            {
+              "name": "send_message",
+              "parameterNames": [
+                "target",
+                "message"
+              ],
+              "schemaSha256": "b3a99a7a28ab7d3bc4acdd844fd3460c124e393e4a219f56af591dcbfe7f72f9"
+            },
+            {
+              "name": "spawn_teammate",
+              "parameterNames": [
+                "name",
+                "description",
+                "prompt",
+                "context"
+              ],
+              "schemaSha256": "e3d8bbd493c56774cbd1f7746e16eb367cc55b64fb3a955fdfc0afb678f89f53"
+            },
+            {
+              "name": "team_task_create",
+              "parameterNames": [
+                "subject",
+                "description",
+                "blocked_by",
+                "write_scopes"
+              ],
+              "schemaSha256": "e2686696dd230580033092407af15db0de08c11fd97e210e236c235f13145903"
+            },
+            {
+              "name": "team_task_get",
+              "parameterNames": [
+                "task_id"
+              ],
+              "schemaSha256": "7685b6770286fbfab9094ef014188ad157bc52a3832f3b7f107c96b6f61328f8"
+            },
+            {
+              "name": "team_task_list",
+              "parameterNames": [
+                "status",
+                "owner",
+                "ready",
+                "cursor",
+                "limit"
+              ],
+              "schemaSha256": "ae1d0bba266fd4eb6b203b4033d73f3aae0c9bf9c9e32d18b17233fabc12d34a"
+            },
+            {
+              "name": "team_task_update",
+              "parameterNames": [
+                "task_id",
+                "expected_revision",
+                "action",
+                "subject",
+                "description",
+                "blocked_by",
+                "write_scopes",
+                "owner"
+              ],
+              "schemaSha256": "69f36a3b73ef8d7f5daeb161ef716bca246cbb924fbd97027a8fb0ccac99f1a2"
+            },
+            {
+              "name": "wait_agent",
+              "parameterNames": [
+                "timeout_ms"
+              ],
+              "schemaSha256": "096d6cad1fae1ee1641aeb9574573940873232ffc3468b5d8edfcd556a2fdbb2"
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "seq": 15,
+          "type": "tool/call",
+          "name": "bash"
+        }
+      ],
+      "descriptor": {
+        "seq": 7,
+        "version": 3,
+        "mode": "one-shot",
+        "provider": "spawn",
+        "label": "极简二号真实德扑玩家"
+      }
+    },
+    {
+      "seat": "cordis-2",
+      "source": "/Users/gengruilin/.dsh/sessions/--Users-gengruilin-relaxweb--/e36ccfd0-59eb-42ff-8a1a-2b43a675f5d7/session.v4.jsonl.zstd",
+      "sourceSha256": "c5e95a4be6c252d82c885f203ad09af1cfd2e1b1d1a84489f0ebe57ab4d00aa6",
+      "physicalHeader": {
+        "type": "session",
+        "version": 4,
+        "id": "e36ccfd0-59eb-42ff-8a1a-2b43a675f5d7",
+        "createdAt": 1789886683458,
+        "cwd": "/Users/gengruilin/relaxweb",
+        "parentSession": "session-409d4298-50f2-4d40-bec4-b95da8474860",
+        "isSeeded": false,
+        "origin": "subagent",
+        "delegationDepth": 1,
+        "agentPreset": "cordis"
+      },
+      "selection": [
+        {
+          "seq": 3,
+          "time": 1789886683483,
+          "agentPreset": "cordis"
+        }
+      ],
+      "catalogs": [
+        {
+          "seq": 13,
+          "sha256": "ceeca10323e0b551ebfa0b093027f98ed0b1c52878248efcd5fe56f54b4b30ad",
+          "tools": [
+            {
+              "name": "ask_user_question",
+              "parameterNames": [
+                "questions"
+              ],
+              "schemaSha256": "58adb302897a1b16a7e4d88d63edd4726ba151499741a4c4ab16fa170cb462a5"
+            },
+            {
+              "name": "bash",
+              "parameterNames": [
+                "command",
+                "description",
+                "timeoutMs",
+                "workdir",
+                "run_in_background",
+                "sandbox_permissions",
+                "justification"
+              ],
+              "schemaSha256": "3778e9ee497ce61e8a6adfedf779ee5e498895414b1e31bbd50d6b110bd14246"
+            },
+            {
+              "name": "cordis_inspect_list",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "cordis_inspect_query",
+              "parameterNames": [
+                "platform",
+                "provider",
+                "method",
+                "input"
+              ],
+              "schemaSha256": "a471939f7d06c603c338d6b8ed6a909e5a08d989fda7e5878ec43b0fd8814727"
+            },
+            {
+              "name": "create_goal",
+              "parameterNames": [
+                "objective",
+                "max_goal_rounds"
+              ],
+              "schemaSha256": "ecd856bd5ab0791ded562a467897dd300d45078b3759ad552e442e376cb78d55"
+            },
+            {
+              "name": "edit",
+              "parameterNames": [
+                "file_path",
+                "old_string",
+                "new_string",
+                "replace_all",
+                "sandbox_permissions",
+                "justification"
+              ],
+              "schemaSha256": "5f33bca757f5d5eca23f65bcc4fba78f727373c38e9c9280f8d9b6eb4c1b5db8"
+            },
+            {
+              "name": "exit_plan_mode",
+              "parameterNames": [
+                "plan"
+              ],
+              "schemaSha256": "711dc6744327672099874600f709dc7a1e8117e1c91e711d87201cc9d357bc35"
+            },
+            {
+              "name": "get_goal",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "glob",
+              "parameterNames": [
+                "pattern",
+                "path"
+              ],
+              "schemaSha256": "d9a178cb82d2943ebcdd5ba3a034b09002994018add24139fee80a4aac1f14d3"
+            },
+            {
+              "name": "grep",
+              "parameterNames": [
+                "pattern",
+                "path",
+                "include"
+              ],
+              "schemaSha256": "2923f36d932ac82bffa39e87b9fbb0e85a50f272e8f9e9ef140244f4b4c8afe8"
+            },
+            {
+              "name": "interrupt_agent",
+              "parameterNames": [
+                "target"
+              ],
+              "schemaSha256": "2a3603a7938db6ffa2b4ab57d4dfdd0f4b04a2b5f4bf5b5b82866e1dcb659b73"
+            },
+            {
+              "name": "job_kill",
+              "parameterNames": [
+                "job_id",
+                "reason"
+              ],
+              "schemaSha256": "c8a5f3f4ffc184b4fc334b22e1a373ec3fbadf27fc99937dada6782c6cc3d3bb"
+            },
+            {
+              "name": "job_list",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "job_output",
+              "parameterNames": [
+                "job_id",
+                "wait",
+                "timeout_ms"
+              ],
+              "schemaSha256": "d7f15fec7442a4978c619649d9cb8b6e8013bb7091309fd60b7430a8336fddac"
+            },
+            {
+              "name": "list_agents",
+              "parameterNames": [],
+              "schemaSha256": "8243f0af367f188a376f2c17b5eabe872a2f7a979813e0d4e2be6d594c2aa259"
+            },
+            {
+              "name": "plugin_manager",
+              "parameterNames": [
+                "action",
+                "target",
+                "enabled",
+                "approvedBuilds",
+                "registry",
+                "offset",
+                "limit"
+              ],
+              "schemaSha256": "dd9b1fc4a913e16a1c41b509f780df354307893de63e11928690a04e5bebc719"
+            },
+            {
+              "name": "poker_subagent",
+              "parameterNames": [
+                "description",
+                "prompt",
+                "agent_preset",
+                "run_in_background"
+              ],
+              "schemaSha256": "237ededa38c6f4d9a3af93f54446165e7c4fd31ba6f5bdbf9f74c4793feb0eab"
+            },
+            {
+              "name": "present",
+              "parameterNames": [
+                "files"
+              ],
+              "schemaSha256": "351b79b89edefcfe20b43e7b13514ce2fd3825b6d5457cf484a45193e3789c6f"
+            },
+            {
+              "name": "read",
+              "parameterNames": [
+                "file_path",
+                "offset",
+                "limit"
+              ],
+              "schemaSha256": "ed1928bd4ff43fd006ad05b8d4e2a7dc184cc87648acf23ece650c5a4bfb6665"
+            },
+            {
+              "name": "read_image",
+              "parameterNames": [
+                "file_path"
+              ],
+              "schemaSha256": "c075c09b1a30464c22b418d7de5208de400cb283fb4e22fbbc0625c8d55356f1"
+            },
+            {
+              "name": "send_message",
+              "parameterNames": [
+                "target",
+                "message"
+              ],
+              "schemaSha256": "b3a99a7a28ab7d3bc4acdd844fd3460c124e393e4a219f56af591dcbfe7f72f9"
+            },
+            {
+              "name": "skill",
+              "parameterNames": [
+                "name"
+              ],
+              "schemaSha256": "4d1ee145bf3a31458b46d002747affcd5ec5b8143daf7520ea66e47767d677e5"
+            },
+            {
+              "name": "spawn_teammate",
+              "parameterNames": [
+                "name",
+                "description",
+                "prompt",
+                "context"
+              ],
+              "schemaSha256": "e3d8bbd493c56774cbd1f7746e16eb367cc55b64fb3a955fdfc0afb678f89f53"
+            },
+            {
+              "name": "subagent",
+              "parameterNames": [
+                "description",
+                "prompt",
+                "run_in_background"
+              ],
+              "schemaSha256": "966fdb816eebd51ce0d19c61b3267f7ef608fddb9f1ff190652240897af3b760"
+            },
+            {
+              "name": "subagent_fork",
+              "parameterNames": [
+                "description",
+                "prompt",
+                "run_in_background"
+              ],
+              "schemaSha256": "a4bf6ea18a704c27fc9770101653debc35cd65f80fa4e240da87cf92dbc7a18c"
+            },
+            {
+              "name": "team_task_create",
+              "parameterNames": [
+                "subject",
+                "description",
+                "blocked_by",
+                "write_scopes"
+              ],
+              "schemaSha256": "e2686696dd230580033092407af15db0de08c11fd97e210e236c235f13145903"
+            },
+            {
+              "name": "team_task_get",
+              "parameterNames": [
+                "task_id"
+              ],
+              "schemaSha256": "7685b6770286fbfab9094ef014188ad157bc52a3832f3b7f107c96b6f61328f8"
+            },
+            {
+              "name": "team_task_list",
+              "parameterNames": [
+                "status",
+                "owner",
+                "ready",
+                "cursor",
+                "limit"
+              ],
+              "schemaSha256": "ae1d0bba266fd4eb6b203b4033d73f3aae0c9bf9c9e32d18b17233fabc12d34a"
+            },
+            {
+              "name": "team_task_update",
+              "parameterNames": [
+                "task_id",
+                "expected_revision",
+                "action",
+                "subject",
+                "description",
+                "blocked_by",
+                "write_scopes",
+                "owner"
+              ],
+              "schemaSha256": "69f36a3b73ef8d7f5daeb161ef716bca246cbb924fbd97027a8fb0ccac99f1a2"
+            },
+            {
+              "name": "todo_write",
+              "parameterNames": [
+                "todos"
+              ],
+              "schemaSha256": "50fd402335241ae84b6e6157ddc30659c10b4bb9d51070181adb61f28fe29cb7"
+            },
+            {
+              "name": "update_goal",
+              "parameterNames": [
+                "goal_id",
+                "revision",
+                "action",
+                "objective",
+                "max_goal_rounds",
+                "blocked_reason"
+              ],
+              "schemaSha256": "669ff296d039c33954bf5de75ca064d671d7eafc32c5e57f73be32d0505f5f4c"
+            },
+            {
+              "name": "wait_agent",
+              "parameterNames": [
+                "timeout_ms"
+              ],
+              "schemaSha256": "096d6cad1fae1ee1641aeb9574573940873232ffc3468b5d8edfcd556a2fdbb2"
+            },
+            {
+              "name": "web_fetch",
+              "parameterNames": [
+                "url"
+              ],
+              "schemaSha256": "80e458d2421931f9aa04a014c34d2f25ed04f5a1c6e0afe818108b8fde27f0f9"
+            },
+            {
+              "name": "web_search",
+              "parameterNames": [
+                "queries"
+              ],
+              "schemaSha256": "7a36d470e7240b2261097fbfb53a188a5b06b03585fab7b7ad6b1418c42c5029"
+            },
+            {
+              "name": "workflow",
+              "parameterNames": [
+                "script",
+                "meta",
+                "args"
+              ],
+              "schemaSha256": "0126a685d42a7a8dd6005936c2483a25a389c97ba05d2cf569e33cf6c7a8bb50"
+            },
+            {
+              "name": "write",
+              "parameterNames": [
+                "file_path",
+                "content",
+                "sandbox_permissions",
+                "justification"
+              ],
+              "schemaSha256": "fe27a52e4abb358a2fb3adabc059d431531800f7e536f8390a4927fc8a9d7556"
+            }
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "seq": 17,
+          "type": "tool/call",
+          "name": "bash"
+        },
+        {
+          "seq": 22,
+          "type": "tool/call",
+          "name": "job_output"
+        }
+      ],
+      "descriptor": {
+        "seq": 7,
+        "version": 3,
+        "mode": "one-shot",
+        "provider": "spawn",
+        "label": "创造二号真实德扑玩家"
+      }
+    }
+  ]
+}

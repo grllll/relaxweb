@@ -119,6 +119,42 @@ class MarketTests(unittest.TestCase):
                          [(NOW // 60) * 60, (NOW // 60 + 1) * 60])
         self.assertEqual(minute["quote_slot"], (NOW + 60) // 10)
 
+    def test_volume_accumulates_per_minute_and_per_day(self):
+        """成交量是累加的：同一分钟多笔相加，价格 tick 不会把它清零。"""
+        self.fund(100_000)
+        with self.randn():
+            empty = market_snapshot(self.conn, "alice", NOW, adjust_coins, SYMBOL)
+            trade_market(self.conn, "alice", "market-vol-0001", "buy", "3", NOW + 1,
+                         adjust_coins, SYMBOL)
+            trade_market(self.conn, "alice", "market-vol-0002", "buy", "2", NOW + 2,
+                         adjust_coins, SYMBOL)
+            filled = market_snapshot(self.conn, "alice", NOW + 3, adjust_coins, SYMBOL)
+            # 推进价格（写 K 线）不该抹掉已经记下的量
+            later = market_snapshot(self.conn, "alice", NOW + 60, adjust_coins, SYMBOL)
+        self.assertEqual(empty["volume"]["minute"]["shares"], 0)
+        self.assertEqual(filled["volume"]["minute"]["shares"], 5)
+        self.assertEqual(filled["volume"]["day"]["shares"], 5)
+        self.assertEqual(later["volume"]["minute"]["shares"], 0)
+        self.assertEqual(later["volume"]["day"]["shares"], 5)
+        self.assertGreater(filled["volume"]["minute"]["amount"], 0)
+        self.assertEqual(later["candles"]["minute"][0]["volume"], 5)
+
+    def test_split_keeps_the_traded_amount_but_doubles_the_share_volume(self):
+        self.fund(100_000)
+        with self.randn():
+            market_snapshot(self.conn, "alice", NOW, adjust_coins, SYMBOL)
+            trade_market(self.conn, "alice", "market-vol-0003", "buy", "4", NOW + 1,
+                         adjust_coins, SYMBOL)
+            before = market_snapshot(self.conn, "alice", NOW + 2, adjust_coins, SYMBOL)
+        self.conn.execute("UPDATE estate_market_symbols SET anchor_cents=anchor_cents*2,"
+                          "price_cents=price_cents*2 WHERE symbol='XTIDE'")
+        with self.randn():
+            after = market_snapshot(self.conn, "alice", NOW + 61, adjust_coins, SYMBOL)
+        self.assertEqual(after["split_count"], 1)
+        self.assertEqual(after["volume"]["day"]["shares"], 8)
+        self.assertAlmostEqual(after["volume"]["day"]["amount"],
+                               before["volume"]["day"]["amount"], places=2)
+
     def test_settlement_runs_every_ten_seconds_but_flow_is_per_minute(self):
         """挂单每 10 秒结算一次；自然流预算仍按分钟计，吞吐不放大。"""
         from estate.market import SLOT_SECONDS
@@ -427,7 +463,7 @@ class MarketResetTests(unittest.TestCase):
         conn.execute("INSERT INTO estate_market_positions VALUES ('alice','XTIDE',1500,77700,0)")
         conn.execute("INSERT INTO estate_market_ticks VALUES ('XTIDE',100,77700)")
         conn.execute("INSERT INTO estate_market_candles VALUES "
-                     "('XTIDE','minute',100,77700,77700,77700,77700)")
+                     "('XTIDE','minute',100,77700,77700,77700,77700,1000,77700)")
         conn.execute("INSERT INTO estate_market_orders(username,symbol,side,price_cents,qty_milli,"
                      "created_minute,expires_minute) VALUES ('alice','XTIDE','buy',77700,1000,100,200)")
         conn.execute("INSERT INTO estate_market_fills(symbol,username,side,minute,price_cents,"

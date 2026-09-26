@@ -1,0 +1,12 @@
+{
+  "player": "cordis-1",
+  "preset": "cordis",
+  "pid": 55354,
+  "session_id": "7e8701ad-6cdc-470d-81a2-f51ed3eed0e2",
+  "strategy_version": "same-policy-v1",
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3",
+  "actions": 21,
+  "final_stack": 108.0,
+  "net": -92.0,
+  "ok": true
+}

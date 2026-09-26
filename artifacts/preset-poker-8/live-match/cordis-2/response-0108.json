@@ -1,0 +1,10 @@
+{
+  "player": "cordis-2",
+  "seq": 108,
+  "decision": {
+    "action": "fold",
+    "reason": "翻前范围外；需补 6 > 阈值 0"
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3",
+  "session_id": "e36ccfd0-59eb-42ff-8a1a-2b43a675f5d7"
+}

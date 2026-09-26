@@ -78,16 +78,21 @@ print(json.dumps(estate_state(conn,'alice',int(time.time()))))
       fills: [{time: 120, username: 'bob', side: 'sell', price: 995, quantity: 1, amount: 995}],
       my_fills: [{time: 60, username: 'alice', side: 'buy', price: 998, quantity: 0.5, amount: 499}],
       history: [{time: 60, price: 995}, {time: 120, price: 1000}],
+      volume: {minute: {shares: 12.5, amount: 12500}, day: {shares: 340.25, amount: 341000}},
       candles: {
-        minute: [{time: 60, open: 990, high: 995, low: 990, close: 995},
-          {time: 120, open: 995, high: 1002, low: 995, close: 1000}],
-        hour: [{time: 0, open: 990, high: 1002, low: 990, close: 1000}],
-        day: [{time: 0, open: 990, high: 1002, low: 990, close: 1000}],
+        minute: [{time: 60, open: 990, high: 995, low: 990, close: 995, volume: 8, amount: 7960},
+          {time: 120, open: 995, high: 1002, low: 995, close: 1000, volume: 12.5, amount: 12500}],
+        hour: [{time: 0, open: 990, high: 1002, low: 990, close: 1000, volume: 20.5, amount: 20460}],
+        day: [{time: 0, open: 990, high: 1002, low: 990, close: 1000, volume: 340.25, amount: 341000}],
       }};
     await page.evaluate(({request, market}) => core.handleServerMessage({
       type: 'estate_market_state', request_id: request.request_id, market,
     }), {request, market});
     assert.match(await page.locator('.estate-market > .estate-sheet-note').first().innerText(), /手续费 吃单 0.25% \/ 挂单 0.05%/);
+    const volumeLine = await page.locator('.estate-market-volume').innerText();
+    assert.match(volumeLine, /本分钟成交 12\.500 份 · 12,500\.00 金币/);
+    assert.match(volumeLine, /今日成交 340\.250 份 · 341,000\.00 金币/);
+    assert.equal(await page.locator('.estate-market-chart svg rect[fill-opacity]').count(), 2);
     assert.equal(await page.locator('.estate-symbol-tab').count(), 3);
     assert.equal(await page.locator('.estate-symbol-tab[aria-selected="true"]').innerText(),
       '星潮模拟指数 1,000.00');

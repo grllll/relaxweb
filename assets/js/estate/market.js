@@ -14,14 +14,17 @@ let draftQuantity = "";
 
 function marketChart(candles, period) {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttribute("viewBox", "0 0 720 240"); svg.setAttribute("role", "img");
+  svg.setAttribute("viewBox", "0 0 720 244"); svg.setAttribute("role", "img");
   svg.setAttribute("aria-label", `${PERIODS.find(([key]) => key === period)[1]}K线图`);
   const ns = "http://www.w3.org/2000/svg";
   const low = Math.min(...candles.map((item) => Number(item.low)));
   const high = Math.max(...candles.map((item) => Number(item.high)));
   const padding = Math.max((high - low) * 0.08, high * 0.001);
   const bottom = low - padding; const range = high - low + padding * 2;
-  const y = (value) => 194 - (value - bottom) / range * 170;
+  const y = (value) => 168 - (value - bottom) / range * 146;
+  // 底部 176–206 留给成交量柱，柱高按窗口内最大成交量归一。
+  const volumes = candles.map((item) => Number(item.volume) || 0);
+  const peak = Math.max(...volumes, 0);
   const add = (tag, attrs) => {
     const node = document.createElementNS(ns, tag);
     for (const [name, value] of Object.entries(attrs)) node.setAttribute(name, String(value));
@@ -46,10 +49,20 @@ function marketChart(candles, period) {
     const title = document.createElementNS(ns, "title");
     title.textContent = `${new Date(item.time * 1000).toLocaleString("zh-CN")}  开 ${format(item.open)}  高 ${format(item.high)}  低 ${format(item.low)}  收 ${format(item.close)}`;
     body.append(title);
+    const volume = Number(item.volume) || 0;
+    if (peak > 0 && volume > 0) {
+      const height = Math.max(1, volume / peak * 30);
+      const bar = add("rect", {x: x - bodyWidth / 2, y: 206 - height, width: bodyWidth,
+        height, fill: color, "fill-opacity": 0.55});
+      const hint = document.createElementNS(ns, "title");
+      hint.textContent = `${new Date(item.time * 1000).toLocaleString("zh-CN")}  成交 ${format(volume, 3)} 份 · ${format(item.amount)} 金币`;
+      bar.append(hint);
+    }
   });
+  add("line", {x1: 54, x2: 706, y1: 206, y2: 206, stroke: "#cbb691"});
   for (const index of new Set([0, Math.floor((candles.length - 1) / 2), candles.length - 1])) {
     const item = candles[index];
-    const label = add("text", {x: 58 + step * (index + 0.5), y: 225,
+    const label = add("text", {x: 58 + step * (index + 0.5), y: 232,
       "text-anchor": index === 0 ? "start" : index === candles.length - 1 ? "end" : "middle",
       fill: "#7d674c", "font-size": 11});
     label.textContent = new Date(item.time * 1000).toLocaleString("zh-CN", period === "day"
@@ -72,7 +85,7 @@ export function renderMarketGame(target, market, onTrade, notice = "", onSelect 
   const status = document.createElement("p"); status.className = "estate-sheet-note";
   const trend = market.trend_paused ? "宏观趋势暂缓（本窗口印钞额度已用尽）" : "长期趋势约每周 +5%";
   status.textContent = market.available
-    ? `游戏内模拟行情 · ${trend}、短期最大波动 ±60% · 每分钟更新 · 手续费 吃单 ${(market.fee_rate * 100).toFixed(2)}% / 挂单 ${((market.maker_fee_rate ?? market.fee_rate) * 100).toFixed(2)}%`
+    ? `游戏内模拟行情 · ${trend}、短期最大波动 ±60% · 每 10 秒撮合 · 手续费 吃单 ${(market.fee_rate * 100).toFixed(2)}% / 挂单 ${((market.maker_fee_rate ?? market.fee_rate) * 100).toFixed(2)}%`
     : "行情暂不可用；可查看已有持仓。";
   wrap.append(status);
   if (market.split_count > 0) {
@@ -83,6 +96,12 @@ export function renderMarketGame(target, market, onTrade, notice = "", onSelect 
       + "份额 ×2、价格 ÷2，持仓成本与金币金额不变，历史 K 线已按拆股折算。";
     wrap.append(split);
   }
+  const volume = document.createElement("p"); volume.className = "estate-sheet-note estate-market-volume";
+  const minuteVolume = market.volume?.minute || {};
+  const dayVolume = market.volume?.day || {};
+  volume.textContent = `本分钟成交 ${format(minuteVolume.shares ?? 0, 3)} 份 · ${format(minuteVolume.amount ?? 0)} 金币`
+    + ` ｜ 今日成交 ${format(dayVolume.shares ?? 0, 3)} 份 · ${format(dayVolume.amount ?? 0)} 金币`;
+  wrap.append(volume);
   const chartControls = document.createElement("div"); chartControls.className = "estate-market-periods";
   const chart = document.createElement("div"); chart.className = "estate-market-chart";
   const drawChart = () => {
@@ -104,7 +123,7 @@ export function renderMarketGame(target, market, onTrade, notice = "", onSelect 
   wrap.append(chartControls, chart);
   drawChart();
   const chartNote = document.createElement("p"); chartNote.className = "estate-market-disclosure";
-  chartNote.textContent = "K 线由每分钟的服务器报价汇总；红色上涨、绿色下跌。无采样的时段不会补造数据。";
+  chartNote.textContent = "K 线由服务端每 10 秒的报价汇总成每分钟开高低收，下方柱状为成交量；红色上涨、绿色下跌。无采样的时段不会补造数据。";
   wrap.append(chartNote);
   wrap.append(bookSection(market, (price) => {
     draftPrice = String(price);

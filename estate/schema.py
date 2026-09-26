@@ -234,6 +234,8 @@ def init_estate(conn):
         high_cents INTEGER NOT NULL,
         low_cents INTEGER NOT NULL,
         close_cents INTEGER NOT NULL,
+        volume_milli INTEGER NOT NULL DEFAULT 0,
+        volume_cents INTEGER NOT NULL DEFAULT 0,
         PRIMARY KEY(symbol,period,start_minute)
     )""")
     conn.execute("""CREATE TABLE IF NOT EXISTS estate_market_orders (

@@ -1,0 +1,10 @@
+{
+  "player": "standard-2",
+  "seq": 24,
+  "decision": {
+    "action": "check",
+    "reason": "无足够成牌或听牌；免费过牌"
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3",
+  "session_id": "2dc0674e-205e-4d4b-a007-299129849000"
+}

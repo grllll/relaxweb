@@ -1,0 +1,10 @@
+{
+  "player": "ptc-1",
+  "seq": 55,
+  "decision": {
+    "action": "fold",
+    "reason": "翻前范围外；需补 2 > 阈值 0"
+  },
+  "strategy_sha256": "4b45820bae8c5571f3ac5c8080e096e682c253df0ae8aefb45587ee1e18492d3",
+  "session_id": "ee88527f-d54a-4395-8596-46ff9049175b"
+}
